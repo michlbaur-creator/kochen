@@ -60,6 +60,7 @@ mich per E-Mail an
   <label for="gbText">Deine Nachricht *</label>
   <textarea id="gbText" name="nachricht" required></textarea>
   <input type="text" name="_gotcha" class="gotcha" tabindex="-1" autocomplete="off">
+  <input type="hidden" name="app" value="Kochen Mibaso">
   <button class="senden" id="gbSenden" type="submit">Absenden</button>
 </form>
 <div class="erfolg" id="gbErfolg">Danke für deinen Eintrag! 🌻 Er wird
@@ -74,7 +75,7 @@ versuche es später noch einmal – oder schreib mir direkt an
 
 </main>
 <script>
-const FORM_URL="https://formspree.io/f/DEIN-CODE";
+const FORM_URL="https://formspree.io/f/xrewokdn";
 const EINTRAEGE=/*GB-START*/[]/*GB-END*/;
 
 function esc(t){return String(t==null?"":t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
