@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Kochen Mibaso – Rezepte für die Hosentasche</title>
 <meta name="description" content="Michas Lieblingsrezepte für Ninja Combi, Speedi, Ninja Artisan und die klassische Küche.">
 <link rel="manifest" href="manifest.webmanifest">
@@ -10,6 +10,9 @@
 <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <meta name="theme-color" content="#6E2A3A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Kochen Mibaso">
 <style>
 :root{
   --leit:#6E2A3A; --leit-dunkel:#4A1C27; --creme:#F7F3E8; --karte:#FFFFFF;
@@ -118,6 +121,7 @@ body.editing #editLeiste{display:block}
 .blase.offen{display:block}
 .blase .zu{float:right;border:none;background:none;font-size:20px;cursor:pointer;color:var(--grau)}
 @media(min-width:600px){.banner h1{font-size:2.1rem}}
+@media(display-mode:standalone){.banner{padding-top:max(42px,calc(env(safe-area-inset-top) + 10px))}}
 </style>
 </head>
 <body>
@@ -212,13 +216,6 @@ body.editing #editLeiste{display:block}
 </div></div>
 
 <footer><div class="fin">
-  <h4>Entdecken</h4>
-  <div class="entdecken">
-    <a class="echip" href="https://flora.mibaso.de">🌼 Flora</a>
-    <a class="echip" href="https://fauna.mibaso.de">🦋 Fauna</a>
-    <a class="echip" href="https://media.mibaso.de">📱 Media</a>
-    <a class="echip" href="https://mibaso.de">🌻 mibaso.de</a>
-  </div>
   <div class="klein">
     Kontakt: <a href="mailto:mibaur@me.com">mibaur@me.com</a><br>
     © Michael Baur · <a href="ueber-mich/">Über mich</a> · <a href="gaestebuch/">Gästebuch</a> · <a href="impressum/">Impressum &amp; Datenschutz</a><br>
