@@ -18,21 +18,21 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Georgia,'Times New Roman',serif;background:var(--creme);color:var(--tinte);font-size:17px;line-height:1.55;-webkit-text-size-adjust:100%}
 a{color:var(--leit)}
-.banner{background:linear-gradient(135deg,var(--leit-dunkel),var(--leit));color:var(--creme);padding:20px 18px 16px;display:flex;align-items:center;gap:14px}
-.banner .logo{flex-shrink:0}
-.banner h1{font-size:26px;font-weight:normal;letter-spacing:.01em}
-.banner .unter{font-style:italic;font-size:14.5px;color:#E8D5C9}
+.banner{background:linear-gradient(180deg,var(--leit-dunkel) 0%,var(--leit) 100%);color:var(--creme);padding:24px 20px 22px;padding-top:max(24px,env(safe-area-inset-top));text-align:center;border-bottom:4px double var(--gold)}
+.banner .logo{width:54px;height:54px;margin:0 auto 10px;display:block;border-radius:14px;background:var(--creme);padding:4px;box-shadow:0 3px 10px rgba(0,0,0,.18)}
+.banner h1{font-size:1.9rem;font-weight:normal;letter-spacing:.02em;line-height:1.2}
+.banner .unter{font-style:italic;font-size:0.98rem;color:#E8D5C9;margin-top:6px}
 .badge-edit{display:none;font-size:12px;background:var(--gold);color:#3A2A22;padding:2px 9px;border-radius:10px;margin-left:8px;vertical-align:middle;font-family:inherit}
 body.editing .badge-edit{display:inline-block}
-.chips{display:flex;gap:8px;flex-wrap:wrap;padding:12px 16px 4px;max-width:720px;margin:0 auto}
-.chip{display:inline-block;background:var(--karte);border:1px solid var(--rahmen);border-radius:18px;padding:5px 13px;font-size:14.5px;text-decoration:none;color:var(--tinte);cursor:pointer}
+.chips{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;padding:12px 16px 4px;max-width:720px;margin:0 auto}
+.chip{display:inline-block;background:var(--karte);border:1px solid var(--rahmen);border-radius:18px;padding:4px 11px;font-size:13px;text-decoration:none;color:var(--tinte);cursor:pointer}
 .chip:active{background:#F0E8D8}
 .werkzeug{max-width:720px;margin:8px auto 0;padding:0 16px}
 .suche{width:100%;font-family:inherit;font-size:16.5px;padding:10px 14px;border:1px solid var(--rahmen);border-radius:10px;background:var(--karte);color:var(--tinte)}
 .filter{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
 .fchip{border:1px solid var(--rahmen);background:var(--karte);border-radius:16px;padding:4px 13px;font-size:14.5px;font-family:inherit;color:var(--tinte);cursor:pointer}
 .fchip.aktiv{background:var(--leit);border-color:var(--leit);color:var(--creme)}
-.intro{max-width:720px;margin:10px auto 0;padding:0 16px;font-size:16.5px}
+.intro{max-width:720px;margin:10px auto 0;padding:0 16px;font-size:16.5px;text-align:center}
 .bereiche{max-width:720px;margin:8px auto 0;padding:8px 16px 0;display:grid;gap:10px}
 .bkachel{display:flex;gap:12px;align-items:center;background:var(--karte);border:1px solid var(--rahmen);border-radius:12px;padding:10px;cursor:pointer}
 .bkachel:active{background:#FBF7EE}
@@ -91,7 +91,7 @@ footer{background:linear-gradient(135deg,var(--leit-dunkel),var(--leit));color:v
 footer .fin{max-width:720px;margin:0 auto}
 footer h4{font-weight:normal;font-size:17px;margin-bottom:10px;color:#E8D5C9}
 .entdecken{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
-.echip{background:rgba(247,243,232,.12);border:1px solid rgba(247,243,232,.35);border-radius:18px;padding:5px 14px;font-size:14.5px;color:var(--creme);text-decoration:none}
+.echip{background:rgba(247,243,232,.12);border:1px solid rgba(247,243,232,.35);border-radius:18px;padding:4px 11px;font-size:13px;color:var(--creme);text-decoration:none}
 footer .klein{font-size:13.5px;color:#D9C2B5;line-height:2}
 footer a{color:var(--creme)}
 #editLeiste{display:none;position:sticky;bottom:0;background:#3A2A22;color:var(--creme);padding:10px 16px;z-index:40}
@@ -117,36 +117,24 @@ body.editing #editLeiste{display:block}
 .blase{display:none;position:fixed;left:14px;right:14px;bottom:76px;background:var(--karte);border:1px solid var(--rahmen);border-radius:14px;padding:14px 16px;font-size:15px;box-shadow:0 4px 14px rgba(40,25,20,.25);z-index:60}
 .blase.offen{display:block}
 .blase .zu{float:right;border:none;background:none;font-size:20px;cursor:pointer;color:var(--grau)}
-@media(min-width:600px){.banner{padding:26px 24px 20px}.banner h1{font-size:30px}}
+@media(min-width:600px){.banner h1{font-size:2.1rem}}
 </style>
 </head>
 <body>
 
 <header class="banner">
-  <svg class="logo" width="54" height="54" viewBox="0 0 64 64" aria-hidden="true">
-    <rect x="2" y="2" width="60" height="60" rx="16" fill="#5A2230" stroke="#F7F3E8" stroke-width="2"/>
-    <path d="M22 15c0 3-3 3.5-3 6.5" stroke="#F7F3E8" stroke-width="2.6" fill="none" stroke-linecap="round"/>
-    <path d="M32 12c0 3.6-3 4.2-3 7.8" stroke="#F7F3E8" stroke-width="2.6" fill="none" stroke-linecap="round"/>
-    <path d="M42 15c0 3-3 3.5-3 6.5" stroke="#F7F3E8" stroke-width="2.6" fill="none" stroke-linecap="round"/>
-    <rect x="12" y="29" width="40" height="4.5" rx="2.2" fill="#F7F3E8"/>
-    <path d="M16 36h32v10c0 4-3 7-7 7H23c-4 0-7-3-7-7z" fill="#F7F3E8"/>
-    <rect x="8" y="30.5" width="6" height="3" rx="1.5" fill="#F7F3E8"/>
-    <rect x="50" y="30.5" width="6" height="3" rx="1.5" fill="#F7F3E8"/>
-  </svg>
-  <div>
-    <h1 id="titel">Kochen Mibaso<span class="badge-edit">Bearbeiten</span></h1>
-    <div class="unter">Rezepte für die Hosentasche</div>
-  </div>
+  <img class="logo" src="assets/icon.svg" alt="Kochen Mibaso Logo">
+  <h1 id="titel">Kochen Mibaso<span class="badge-edit">Bearbeiten</span></h1>
+  <div class="unter">Meine Rezepte für die Hosentasche.</div>
 </header>
 
 <nav class="chips" id="obenChips">
-  <button class="chip" id="tourChip">📖 Neu hier?</button>
-  <a class="chip" href="https://flora.mibaso.de">🌿 Flora</a>
-  <a class="chip" href="https://fauna.mibaso.de">🐦 Fauna</a>
+  <a class="chip" href="https://flora.mibaso.de">🌼 Flora</a>
+  <a class="chip" href="https://fauna.mibaso.de">🦋 Fauna</a>
   <a class="chip" href="https://media.mibaso.de">📱 Media</a>
 </nav>
 
-<p class="intro" id="intro">Hier findest du meine Lieblingsrezepte für den Ninja Combi, den Ninja Artisan und natürlich auch traditionelle Gerichte aus der heimischen Küche.</p>
+<p class="intro" id="intro">Meine Lieblingsrezepte.</p>
 
 <div class="bereiche" id="bereiche">
   <div class="bkachel" data-b="combi"><img src="https://mibaso.de/wp-content/uploads/2026/06/E0198C00-0EC5-4969-B927-7D93FBE3AEBD_1_105_c.jpeg" alt="Ninja Combi"><span><span class="bt">Ninja Combi</span><br><span class="bx">Heißluft, Dampf und Backofen in einem Gerät: Der Ninja Combi macht schnelle Gerichte besonders einfach.</span></span><span class="pfeil">›</span></div>
@@ -226,8 +214,8 @@ body.editing #editLeiste{display:block}
 <footer><div class="fin">
   <h4>Entdecken</h4>
   <div class="entdecken">
-    <a class="echip" href="https://flora.mibaso.de">🌿 Flora</a>
-    <a class="echip" href="https://fauna.mibaso.de">🐦 Fauna</a>
+    <a class="echip" href="https://flora.mibaso.de">🌼 Flora</a>
+    <a class="echip" href="https://fauna.mibaso.de">🦋 Fauna</a>
     <a class="echip" href="https://media.mibaso.de">📱 Media</a>
     <a class="echip" href="https://mibaso.de">🌻 mibaso.de</a>
   </div>
@@ -511,7 +499,6 @@ document.getElementById("expBtn").addEventListener("click",()=>{
 
 /* Tour + Installations-Hinweis */
 function tourAuf(){document.getElementById("tourOverlay").classList.add("offen")}
-document.getElementById("tourChip").addEventListener("click",tourAuf);
 document.getElementById("hilfe").addEventListener("click",tourAuf);
 document.getElementById("tourZu").addEventListener("click",()=>{
   document.getElementById("tourOverlay").classList.remove("offen");
