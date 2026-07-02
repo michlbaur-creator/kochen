@@ -32,6 +32,28 @@ body.editing .badge-edit{display:inline-block}
 .filter{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
 .fchip{border:1px solid var(--rahmen);background:var(--karte);border-radius:16px;padding:4px 13px;font-size:14.5px;font-family:inherit;color:var(--tinte);cursor:pointer}
 .fchip.aktiv{background:var(--leit);border-color:var(--leit);color:var(--creme)}
+.intro{max-width:720px;margin:10px auto 0;padding:0 16px;font-size:16.5px}
+.bereiche{max-width:720px;margin:8px auto 0;padding:8px 16px 0;display:grid;gap:10px}
+.bkachel{display:flex;gap:12px;align-items:center;background:var(--karte);border:1px solid var(--rahmen);border-radius:12px;padding:10px;cursor:pointer}
+.bkachel:active{background:#FBF7EE}
+.bkachel img{width:74px;height:74px;object-fit:cover;border-radius:9px;flex-shrink:0}
+.bkachel .bt{font-weight:bold;font-size:16px}
+.bkachel .bx{font-size:13.5px;color:var(--grau);line-height:1.4}
+.bkachel .pfeil{margin-left:auto;color:var(--grau);font-size:22px;flex-shrink:0}
+@media(min-width:600px){
+.bereiche{grid-template-columns:1fr 1fr 1fr}
+.bkachel{flex-direction:column;align-items:stretch;text-align:center;padding:0 0 12px;overflow:hidden}
+.bkachel img{width:100%;height:110px;border-radius:0}
+.bkachel .bt,.bkachel .bx{padding:0 10px}
+.bkachel .pfeil{display:none}
+}
+details.akk{background:var(--karte);border:1px solid var(--rahmen);border-radius:12px;margin-bottom:9px}
+details.akk summary{cursor:pointer;padding:12px 40px 12px 14px;font-weight:bold;font-size:16px;list-style:none;position:relative}
+details.akk summary::-webkit-details-marker{display:none}
+details.akk summary::after{content:"\203A";position:absolute;right:16px;top:10px;font-size:20px;color:var(--grau);transform:rotate(90deg)}
+details.akk[open] summary::after{transform:rotate(-90deg)}
+details.akk .akkin{padding:0 14px 13px;font-size:15.5px}
+.btext p{margin-bottom:12px}
 main{max-width:720px;margin:0 auto;padding:6px 16px 40px}
 h2.kat{font-size:25px;font-weight:normal;margin:26px 0 2px}
 .strich{width:38px;height:3px;margin:2px 0 12px;border-radius:2px}
@@ -124,6 +146,67 @@ body.editing #editLeiste{display:block}
   <a class="chip" href="https://media.mibaso.de">📱 Media</a>
 </nav>
 
+<p class="intro" id="intro">Hier findest du meine Lieblingsrezepte für den Ninja Combi, den Ninja Artisan und natürlich auch traditionelle Gerichte aus der heimischen Küche.</p>
+
+<div class="bereiche" id="bereiche">
+  <div class="bkachel" data-b="combi"><img src="https://mibaso.de/wp-content/uploads/2026/06/E0198C00-0EC5-4969-B927-7D93FBE3AEBD_1_105_c.jpeg" alt="Ninja Combi"><span><span class="bt">Ninja Combi</span><br><span class="bx">Heißluft, Dampf und Backofen in einem Gerät: Der Ninja Combi macht schnelle Gerichte besonders einfach.</span></span><span class="pfeil">›</span></div>
+  <div class="bkachel" data-b="artisan"><img src="https://mibaso.de/wp-content/uploads/2026/06/6424DF79-7185-4FA0-8C50-84782FF7CB73_1_105_c.jpeg" alt="Ninja Artisan"><span><span class="bt">Ninja Artisan</span><br><span class="bx">Knusprige Pizza, Flammkuchen und Focaccia aus dem Ninja Artisan.</span></span><span class="pfeil">›</span></div>
+  <div class="bkachel" data-b="oldschool"><img src="https://mibaso.de/wp-content/uploads/2026/06/270324CB-8595-42EC-9D12-6C76770094CC_1_105_c.jpeg" alt="Old School"><span><span class="bt">Old School</span><br><span class="bx">Bewährte Klassiker aus meiner Küche – ganz ohne Hightech.</span></span><span class="pfeil">›</span></div>
+</div>
+
+<template id="bereich-combi">
+<div class="beschr">Kochen auf Etagen, Zeit sparen, weniger Abwaschen!</div>
+<div class="btext">
+<p>Wir nutzen einen <b>Ninja Combi 12-in-1</b>. Und weil er so genial kocht, durfte auch noch der kleine Bruder – der <b>Speedi</b> – mit auf den Campingplatz.</p>
+<p>Beide Ninja-Geräte sind super – die Gerichte sowieso – wenn man’s denn richtig macht. Und das ist nicht immer ganz einfach. <b>Zwischen wirklich guten Online-Rezepten findet man im Netz halt auch jede Menge kulinarischen Sondermüll.</b> So entstand nach und nach diese persönliche Rezeptsammlung – nachgekocht, variiert, ausprobiert.</p>
+</div>
+<details class="akk"><summary>Vergleich Combi &amp; Speedi</summary><div class="akkin">Ich kann mit beiden Geräten ähnliche Ergebnisse erzielen. Aber nur der Combi verfügt über eine Seitentüre, die einen einfachen, beleuchteten Zugang zu den einzelnen Etagen erlaubt. Beim Speedi muss ich mit Hilfe einer Gabel oder Zange erst umständlich das obere Gitter entfernen, um nach ‚unten‘ zu gelangen.<br><br>Der Speedi punktet wiederum beim Anbraten. Da lässt er sich wie eine Pfanne benutzen.</div></details>
+<details class="akk"><summary>Rezepte finden</summary><div class="akkin">• Alle Rezepte sind für 2 Personen gerechnet.<br>• Oft gibt es Varianten für Combi und Speedi.<br>• Die Suche oben ist meist der schnellste Weg.</div></details>
+</template>
+
+<template id="bereich-artisan">
+<div class="beschr">Der Ninja Artisan – heiß, klein und fein</div>
+<div class="btext">
+<p>Der Ninja Artisan ist die neueste Errungenschaft in unserer Küche. Er heizt deutlich heißer als ein normaler Backofen und sorgt für knusprige Böden, luftige Ränder und erstaunlich gute Ergebnisse.</p>
+<p>Nach den ersten Pizzen war schnell klar: Ganz ohne Übung geht es nicht. Deshalb findest du hier nicht nur Rezepte, sondern auch kleine Tipps und Erfahrungen aus der Praxis – vom Fertigteig bis zur selbstgemachten Pizza.</p>
+</div>
+<h3 style="color:#C4603A">Viele Wege führen in den Ofen</h3><div class="strich" style="background:#C4603A"></div>
+<details class="akk"><summary>Fertigteig von der Rolle</summary><div class="akkin"><i>Die einfachste und schnellste Möglichkeit: Pizza-Fertigteig von der Rolle.</i> Der Teig sollte möglichst <b>kein</b> Backpulver, keinen Alkohol und keinen Kleber enthalten.<br><br>
+<b>1. Ofen vorheizen (ca. 15–20 Min.):</b> Schalte den Ninja Artisan auf die Einstellung <b>Pizza</b> und wähle das Profil <b>Artisan</b>. Lass den Ofen mitsamt dem Pizzastein vollständig aufheizen, bis das Signal ertönt.<br><br>
+<b>2. Teig ausrollen:</b> Rolle den Teig aus und schneide ihn in die gewünschte Größe (meistens reicht eine Rolle für zwei kleinere Artisan-Pizzen). Direkt vor dem Belegen: Löse den Teig vom Papier und bestreue die Arbeitsfläche (Pizzaschale/Schaufel) mit etwas Hartweizengrieß (Semola). Forme evtl. einen ca. 2 cm hohen Rand.<br><br>
+<b>3. Schnell belegen:</b> Bewege die Pizzaschaufel kurz ruckartig, um zu prüfen, ob der Teig rutscht. Erst jetzt zügig mit Tomatensauce, Mozzarella (gut abgetropft!) und Belag versehen. Wenn der Teig zu lange belegt auf der Schale liegt, weicht er durch und klebt fest.<br><br>
+<b>4. Einschießen und backen:</b> Nach dem Add-Food-Signal schieße die Pizza zügig auf den heißen Stein ein. Das dauert weniger als 3 Minuten. Beobachte das Spektakel einfach durch das „Chef’s View“-Fenster.</div></details>
+<details class="akk"><summary>Fertigteig optimiert</summary><div class="akkin"><i>Mit diesem einfachen Trick reaktivierst du eine normale Teigrolle aus dem Kühlregal so, dass sie im Artisan herrlich fluffig aufgeht.</i><br><br>
+<b>Zutaten:</b> 1 Rolle frischer Pizzateig aus dem Kühlregal (<b>extrem wichtig: ohne Zusätze wie Backpulver, Kleber und Ethylalkohol</b>) · etwas Semola (Hartweizengrieß) für Arbeitsfläche und Schale.<br><br>
+<b>1. Portionieren &amp; Kneten:</b> Nimm den Teig aus dem Kühlschrank, rolle ihn flach aus und schneide ihn in zwei Hälften. Knete jede Hälfte für maximal 30 bis 60 Sekunden kurz durch und forme sie mit den Händen zu einer glatten Kugel.<br><br>
+<b>2. Die Entspannungsphase (essenziell!):</b> Lege die Teigkugeln in eine leicht geölte Schüssel oder auf ein Brett und decke sie ab. Lass sie mindestens 45 Minuten bei Raumtemperatur ruhen. <i>Warum?</i> Nur so verliert der Teig seine elastische Spannung und zieht sich beim Ausziehen nicht wie ein Gummiband zusammen.<br><br>
+<b>3. Formen ohne Druck:</b> Bestreue deine Arbeitsfläche mit Semola. Drücke die entspannte Kugel mit den Fingern von der Mitte her flach. Lass einen kleinen Rand stehen, damit die Hefe im Ofen arbeiten kann.<br><br>
+<b>4. Belegen &amp; Backen:</b> Ziehe den dünnen Fladen auf deine Pizzaschale (vorher mit etwas Semola bestreuen). Dünn mit Tomatensauce bestreichen, belegen und in den vorgeheizten Ofen. Im Profil <b>Pizza → Artisan</b> braucht sie knapp 3 Minuten, bis der Rand goldbraun knuspert.</div></details>
+<details class="akk"><summary>Teig handgemacht</summary><div class="akkin"><i>Für das echte Neapel-Feeling: Ein federleichter, bekömmlicher Teig mit riesigen Luftblasen im Rand.</i><br><br>
+<b>Zutaten (für 2 Pizzen):</b> 300 g Weizenmehl Type 00 · 190 ml kaltes Wasser · 8 g feines Salz · 1 g frische Hefe oder eine winzige Messerspitze Trockenhefe.<br><br>
+<b>1. Verrühren (kein langes Kneten!):</b> Löse die Hefe im Wasser auf. Gib die Hälfte des Mehls dazu und verrühre es zu einem Brei. Füge Salz und das restliche Mehl hinzu. Verrühre alles mit einem Löffel, bis ein klobiger Teigklumpen entsteht.<br><br>
+<b>2. Die Zauberpause:</b> Decke die Schüssel ab und lass sie 30 Minuten bei Raumtemperatur stehen. In dieser Zeit verbindet sich das Mehl von ganz alleine mit dem Wasser.<br><br>
+<b>3. Falten &amp; Ruhen:</b> Ziehe den Teig danach an den Seiten viermal nach oben und falte ihn in die Mitte. Er wird sofort spiegelglatt! Decke ihn wieder ab und stelle ihn für 20 bis 24 Stunden in den Kühlschrank (Gemüsefach).<br><br>
+<b>4. Ballen formen:</b> Hol den Teig 4 Stunden vor dem Backen heraus. Teile ihn in zwei Hälften und forme jede zu einer straffen, glatten Kugel. Lass diese abgedeckt 4 Stunden bei Raumtemperatur gehen.<br><br>
+<b>5. Ausziehen &amp; Backen:</b> Drücke die Kugel nur mit den Fingern von innen nach außen flach (kein Nudelholz!). Ziehe die Mitte hauchdünn aus. Auf die mit Semola bestreute Schale geben, zügig belegen und im Profil <b>Pizza → Artisan</b> ca. 2,5 bis 3 Minuten backen.</div></details>
+<details class="akk"><summary>Teigballen vom Profi</summary><div class="akkin"><i>Es gibt spezialisierte Pizza-Onlineshops (z. B. Waldis Pizza Shop), die tiefgekühlte Teigballen versenden. Das Ergebnis im Ninja Artisan ist von einer frischen Pizzeria-Pizza praktisch nicht mehr zu unterscheiden.</i><br><br>
+<b>Das Produkt:</b> Du erhältst perfekt portionierte Teigkugeln (meist ca. 250 g), die aus echtem italienischen <i>Tipo 00</i>-Mehl, Wasser, Salz und minimaler Hefe hergestellt und nach der optimalen Reifezeit schockgefrostet wurden. Absolut keine Chemie, kein Alkohol, kein künstlicher Kleber.<br><br>
+<b>Der Versand:</b> Erfolgt in Styroporboxen mit Trockeneis. Die Kugeln kommen tiefgekühlt bei dir an und wandern direkt in deinen Gefrierschrank.<br><br>
+<b>Die Anwendung:</b> Am Vortag einfach die gewünschte Anzahl Kugeln in einer abgedeckten Form in den Kühlschrank legen (zum Auftauen und langsamen Erwachen) und am Backtag 3 bis 4 Stunden vorher bei Raumtemperatur akklimatisieren lassen.</div></details>
+<h3 style="color:#2C7A6A">Die besten Tricks</h3><div class="strich" style="background:#2C7A6A"></div>
+<details class="akk"><summary>💡 Der Teig zieht sich wie Gummi zusammen?</summary><div class="akkin">Knete den Fertigteig von der Rolle nach dem Auspacken kurz zu einer glatten Kugel und lass ihn <b>mindestens 45 Minuten bei Raumtemperatur</b> abgedeckt ruhen. Das entspannt das Klebereiweiß (Gluten) komplett. Danach lässt sich der Teig mühelos von innen nach außen hauchdünn ausziehen, ohne zurückzuspringen, und der Rand geht im Ofen wunderbar luftig auf.</div></details>
+<details class="akk"><summary>🚫 Hilfe, die Pizza klebt auf der Schale fest!</summary><div class="akkin">Verwende zum Ausformen des Teigs und für die Pizzaschale <b>Hartweizengrieß (Semola)</b> statt normalem Mehl. Semola wirkt unter dem Teig wie winzige Kugellager, sodass die Pizza mühelos auf den heißen Stein gleitet. Normales Mehl verbrennt bei den 370 °C des Ninja Artisan sofort schwarz und hinterlässt einen bitteren Geschmack auf dem Pizzaboden.<br><br>Erst kurz vor dem Einschieben und nicht zu dick belegen.</div></details>
+<details class="akk"><summary>🌿 Verbrannter, bitterer Oregano auf der Pizza?</summary><div class="akkin">Streue getrocknete Kräuter wie Oregano <b>niemals oben auf den Käse</b>, da sie bei der enormen Oberhitze im Artisan in Sekunden verbrennen. <b>Der Hack:</b> Rühre den Oregano direkt in die kalte Tomatensauce ein. Die Feuchtigkeit der Tomaten schützt die Kräuter beim Backen, sodass sie ihr volles Pizzeria-Aroma entfalten, ohne bitter zu werden.</div></details>
+</template>
+
+<template id="bereich-oldschool">
+<div class="beschr">Die alte Schule</div>
+<div class="btext">
+<p>Meine inzwischen schon in die Jahre gekommenen ‚Kompositionen‘ basieren meist auf Originalrezepten bekannter Online-Portale wie Chefkoch.de, Kuechengoetter.de oder Lecker.de – angepasst an meine Bedürfnisse. Ich habe sie vereinfacht, gekürzt, kombiniert – und manchmal auch ein bisschen veredelt 😉</p>
+<p><b>Weitere Rezepte</b> liegen aktuell noch auf meiner alten Seite und werden nach und nach umgezogen!</p>
+</div>
+</template>
+
 <div class="werkzeug" id="werkzeug">
   <input class="suche" id="suche" type="search" placeholder="Rezept oder Zutat suchen …">
   <div class="filter" id="filter"></div>
@@ -164,7 +247,7 @@ body.editing #editLeiste{display:block}
 
 <div class="overlay" id="tourOverlay"><div class="obox">
   <h3>Willkommen in Michas Küche! 👋</h3>
-  <div class="tourpunkt"><b>1 · Stöbern:</b> Die Rezepte sind wie in einem Kochbuch nach Kategorien geordnet – einfach eine Kachel antippen.</div>
+  <div class="tourpunkt"><b>1 · Stöbern:</b> Oben stellen drei Kacheln die Bereiche vor (Ninja Combi, Ninja Artisan, Old School) – mit Tipps und Hintergründen. Darunter sind alle Rezepte wie in einem Kochbuch nach Kategorien geordnet.</div>
   <div class="tourpunkt"><b>2 · Suchen &amp; filtern:</b> Oben kannst du nach Rezepten oder Zutaten suchen und nach Gerät filtern (Combi, Speedi, Artisan oder Old School).</div>
   <div class="tourpunkt"><b>3 · Nachkochen:</b> Im Rezept findest du Zutaten, Schritt-für-Schritt-Anleitung und oft einen Tipp.</div>
   <div class="tourpunkt"><b>4 · Installieren:</b> Die Seite lässt sich als App auf den Startbildschirm legen – dann funktioniert sie wie eine richtige App.</div>
@@ -242,6 +325,8 @@ function zeigeListe(){
   document.getElementById("liste").style.display="block";
   document.getElementById("werkzeug").style.display="block";
   document.getElementById("obenChips").style.display="flex";
+  document.getElementById("intro").style.display="block";
+  document.getElementById("bereiche").style.display="grid";
   const alle=alleRezepte().filter(passt);
   const main=document.getElementById("liste");
   let html="";
@@ -313,6 +398,8 @@ function zeigeDetail(id){
   document.getElementById("liste").style.display="none";
   document.getElementById("werkzeug").style.display="none";
   document.getElementById("obenChips").style.display="none";
+  document.getElementById("intro").style.display="none";
+  document.getElementById("bereiche").style.display="none";
   d.style.display="block";
   window.scrollTo(0,0);
 }
@@ -450,6 +537,38 @@ document.getElementById("blaseZu").addEventListener("click",()=>{
   document.getElementById("installBlase").classList.remove("offen");
   localStorage.setItem("kochen-tour-gesehen","1");
 });
+
+
+/* ---------- Bereichs-Seiten ---------- */
+const BEREICHE={
+  combi:{titel:"Ninja Combi",foto:"https://mibaso.de/wp-content/uploads/2026/06/E0198C00-0EC5-4969-B927-7D93FBE3AEBD_1_105_c.jpeg",geraete:["Combi","Speedi"]},
+  artisan:{titel:"Ninja Artisan",foto:"https://mibaso.de/wp-content/uploads/2026/06/6424DF79-7185-4FA0-8C50-84782FF7CB73_1_105_c.jpeg",geraete:["Artisan"]},
+  oldschool:{titel:"Old School",foto:"https://mibaso.de/wp-content/uploads/2026/06/270324CB-8595-42EC-9D12-6C76770094CC_1_105_c.jpeg",geraete:["Old School"]}
+};
+function zeigeBereich(key){
+  const b=BEREICHE[key]; if(!b)return;
+  offenId=null;
+  const d=document.getElementById("detail");
+  let html='<button class="zurueck">‹ Zurück zur Übersicht</button>';
+  html+='<img class="foto" src="'+b.foto+'" alt="'+esc(b.titel)+'">';
+  html+='<h2>'+esc(b.titel)+'</h2>';
+  html+=document.getElementById("bereich-"+key).innerHTML;
+  html+='<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px">'+
+    b.geraete.map(g=>'<button class="ebtn gzu" data-g="'+g+'" style="background:var(--leit);color:var(--creme);border-color:var(--leit)">'+g+'-Rezepte ansehen</button>').join("")+'</div>';
+  d.innerHTML=html;
+  d.querySelector(".zurueck").addEventListener("click",()=>{zeigeListe();window.scrollTo(0,0)});
+  d.querySelectorAll(".gzu").forEach(btn=>btn.addEventListener("click",()=>{
+    filterGer=btn.dataset.g;baueFilter();zeigeListe();window.scrollTo(0,0);
+  }));
+  document.getElementById("liste").style.display="none";
+  document.getElementById("werkzeug").style.display="none";
+  document.getElementById("obenChips").style.display="none";
+  document.getElementById("intro").style.display="none";
+  document.getElementById("bereiche").style.display="none";
+  d.style.display="block";
+  window.scrollTo(0,0);
+}
+document.querySelectorAll(".bkachel").forEach(k=>k.addEventListener("click",()=>zeigeBereich(k.dataset.b)));
 
 baueFilter();
 zeigeListe();
