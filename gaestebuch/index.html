@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gästebuch – Kochen Mibaso</title>
+<link rel="icon" href="../assets/favicon-32.png" sizes="32x32">
+<meta name="theme-color" content="#6E2A3A">
+<style>
+:root{--leit:#6E2A3A;--leit-dunkel:#4A1C27;--creme:#F7F3E8;--karte:#FFFFFF;--rahmen:#E3D8C4;--tinte:#3A2A22;--grau:#8A7060;--gold:#C28A3A}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Georgia,'Times New Roman',serif;background:var(--creme);color:var(--tinte);font-size:17px;line-height:1.6}
+.banner{background:linear-gradient(180deg,var(--leit-dunkel) 0%,var(--leit) 100%);color:var(--creme);padding:20px 18px;text-align:center;border-bottom:4px double var(--gold)}
+.banner h1{font-size:24px;font-weight:normal}
+main{max-width:720px;margin:0 auto;padding:18px 16px 50px}
+a{color:var(--leit)}
+.zurueck{display:inline-block;background:#fff;border:1px solid var(--rahmen);border-radius:18px;padding:6px 16px;margin:8px 0 18px;text-decoration:none;color:var(--tinte);font-size:15.5px}
+h2{font-size:24px;font-weight:normal;margin:22px 0 2px;color:var(--leit)}
+.strich{width:38px;height:3px;background:var(--gold);border-radius:2px;margin:2px 0 14px}
+p{margin-bottom:12px}
+label{display:block;font-size:14.5px;color:var(--grau);margin:14px 0 4px}
+input[type=text],textarea{width:100%;font-family:inherit;font-size:16px;padding:9px 12px;border:1px solid var(--rahmen);border-radius:10px;background:var(--karte);color:var(--tinte)}
+textarea{min-height:130px}
+.senden{font-family:inherit;font-size:16.5px;margin-top:16px;padding:10px 22px;border:none;border-radius:10px;background:var(--leit);color:var(--creme);cursor:pointer}
+.senden:disabled{opacity:.6;cursor:wait}
+.hinweis{background:#FCF6E9;border:1px solid var(--rahmen);border-left:4px solid var(--gold);border-radius:0 12px 12px 0;padding:11px 14px;margin:14px 0;font-size:15.5px}
+.erfolg{background:#EAF3E4;border:1px solid #C6DCB8;border-left:4px solid #5A8A46;border-radius:0 12px 12px 0;padding:13px 15px;margin:14px 0;display:none}
+.fehler{background:#F7E9E9;border:1px solid #E0BFBF;border-left:4px solid #A34444;border-radius:0 12px 12px 0;padding:13px 15px;margin:14px 0;display:none}
+.eintrag{background:var(--karte);border:1px solid var(--rahmen);border-radius:12px;padding:14px 16px;margin-bottom:12px}
+.eintrag .kopf{font-weight:bold}
+.eintrag .datum{font-size:13.5px;color:var(--grau);font-weight:normal;margin-left:6px}
+.eintrag .text{margin-top:6px}
+.leer{color:var(--grau);font-style:italic}
+.gotcha{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+</style>
+</head>
+<body>
+<header class="banner"><h1>Gästebuch</h1></header>
+<main>
+<a class="zurueck" href="../">‹ Zurück zur App</a>
+
+<p>Du hast ein Rezept ausprobiert oder ein eigenes Lieblingsgericht
+weiterentwickelt? Teile deine Erfahrungen, Tipps oder einfach ein Lob –
+ich freue mich über jedes Feedback!</p>
+
+<div class="hinweis">Jeder Eintrag landet zuerst bei mir und wird vor der
+Veröffentlichung gelesen – er erscheint also nicht sofort.</div>
+
+<h2>Eintrag schreiben</h2>
+<div class="strich"></div>
+
+<div id="formZu" class="hinweis" style="display:none">Das Formular wird
+gerade eingerichtet und ist in Kürze verfügbar. Bis dahin erreichst du
+mich per E-Mail an
+<a href="mailto:mibaur@me.com?subject=G%C3%A4stebucheintrag%20Kochen">mibaur@me.com</a>.</div>
+
+<form id="gbForm" novalidate>
+  <label for="gbName">Dein Name *</label>
+  <input type="text" id="gbName" name="name" required autocomplete="name">
+  <label for="gbText">Deine Nachricht *</label>
+  <textarea id="gbText" name="nachricht" required></textarea>
+  <input type="text" name="_gotcha" class="gotcha" tabindex="-1" autocomplete="off">
+  <button class="senden" id="gbSenden" type="submit">Absenden</button>
+</form>
+<div class="erfolg" id="gbErfolg">Danke für deinen Eintrag! 🌻 Er wird
+gelesen und erscheint in Kürze hier im Gästebuch.</div>
+<div class="fehler" id="gbFehler">Das hat leider nicht geklappt. Bitte
+versuche es später noch einmal – oder schreib mir direkt an
+<a href="mailto:mibaur@me.com">mibaur@me.com</a>.</div>
+
+<h2>Einträge</h2>
+<div class="strich"></div>
+<div id="eintraege"></div>
+
+</main>
+<script>
+const FORM_URL="https://formspree.io/f/DEIN-CODE";
+const EINTRAEGE=/*GB-START*/[]/*GB-END*/;
+
+function esc(t){return String(t==null?"":t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+(function(){
+  const box=document.getElementById("eintraege");
+  if(!EINTRAEGE.length){
+    box.innerHTML='<p class="leer">Noch keine Einträge – sei der oder die Erste!</p>';
+  }else{
+    box.innerHTML=EINTRAEGE.map(e=>
+      '<div class="eintrag"><div class="kopf">'+esc(e.name)+
+      (e.datum?'<span class="datum">· '+esc(e.datum)+'</span>':'')+
+      '</div><div class="text">'+esc(e.text)+'</div></div>').join("");
+  }
+  const form=document.getElementById("gbForm");
+  if(FORM_URL.indexOf("DEIN-CODE")>=0){
+    form.style.display="none";
+    document.getElementById("formZu").style.display="block";
+    return;
+  }
+  form.addEventListener("submit",function(ev){
+    ev.preventDefault();
+    const name=document.getElementById("gbName").value.trim();
+    const text=document.getElementById("gbText").value.trim();
+    if(!name||!text){alert("Bitte Name und Nachricht ausfüllen.");return}
+    const btn=document.getElementById("gbSenden");
+    btn.disabled=true;btn.textContent="Wird gesendet …";
+    fetch(FORM_URL,{method:"POST",body:new FormData(form),headers:{"Accept":"application/json"}})
+      .then(r=>{
+        if(r.ok){form.style.display="none";document.getElementById("gbErfolg").style.display="block"}
+        else{document.getElementById("gbFehler").style.display="block"}
+      })
+      .catch(()=>{document.getElementById("gbFehler").style.display="block"})
+      .finally(()=>{btn.disabled=false;btn.textContent="Absenden"});
+  });
+})();
+</script>
+</body>
+</html>
