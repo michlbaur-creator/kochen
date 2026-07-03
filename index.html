@@ -24,7 +24,7 @@ body{font-family:Georgia,'Times New Roman',serif;background:var(--creme);color:v
 a{color:var(--leit)}
 .banner{background:linear-gradient(180deg,var(--leit-dunkel) 0%,var(--leit) 100%);color:var(--creme);padding:24px 20px 22px;padding-top:max(24px,env(safe-area-inset-top));text-align:center;border-bottom:4px double var(--gold)}
 .banner .logo{width:54px;height:54px;margin:0 auto 10px;display:block;border-radius:14px;background:var(--creme);padding:4px;box-shadow:0 3px 10px rgba(0,0,0,.18)}
-.banner h1{font-size:1.9rem;font-weight:normal;letter-spacing:.02em;line-height:1.2}
+.banner h1{font-size:1.9rem;font-weight:normal;letter-spacing:.02em;line-height:1.2;user-select:none;-webkit-user-select:none;cursor:default}
 .banner .unter{font-style:italic;font-size:0.98rem;color:#E8D5C9;margin-top:6px}
 .badge-edit{display:none;font-size:12px;background:var(--gold);color:#3A2A22;padding:2px 9px;border-radius:10px;margin-left:8px;vertical-align:middle;font-family:inherit}
 body.editing .badge-edit{display:inline-block}
@@ -225,8 +225,7 @@ body.editing #editLeiste{display:block}
   </div>
   <div class="klein">
     © Michael Baur · Kontakt: <a href="mailto:mibaur@me.com">mibaur@me.com</a><br>
-    <a href="ueber-mich/">Über mich</a> · <a href="impressum/">Impressum &amp; Datenschutz</a><br>
-    <a href="#" id="editLink" style="color:#D9C2B5">✎ Rezepte bearbeiten</a>
+    <a href="ueber-mich/">Über mich</a> · <a href="impressum/">Impressum &amp; Datenschutz</a>
   </div>
 </div></footer>
 
@@ -468,12 +467,18 @@ document.getElementById("eSpeichern").addEventListener("click",()=>{
   if(offenId)zeigeDetail(r.id);else zeigeListe();
 });
 
-document.getElementById("editLink").addEventListener("click",ev=>{
-  ev.preventDefault();
-  editing=!editing;
-  document.body.classList.toggle("editing",editing);
-  window.scrollTo(0,0);
-  if(offenId)zeigeDetail(offenId);else zeigeListe();
+let _tipps=0,_tippZeit=0;
+document.getElementById("titel").addEventListener("click",()=>{
+  const jetzt=Date.now();
+  if(jetzt-_tippZeit>1600)_tipps=0;
+  _tippZeit=jetzt;_tipps++;
+  if(_tipps>=3){
+    _tipps=0;
+    editing=!editing;
+    document.body.classList.toggle("editing",editing);
+    window.scrollTo(0,0);
+    if(offenId)zeigeDetail(offenId);else zeigeListe();
+  }
 });
 document.getElementById("endeBtn").addEventListener("click",()=>{
   editing=false;document.body.classList.remove("editing");
