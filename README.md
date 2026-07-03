@@ -18,3 +18,5 @@ und mit GitHub Desktop pushen.
 Der Automatik-Helfer (`.github/workflows/deploy.yml`) stempelt bei jedem
 Push eine frische Versionsnummer in `sw.js` und veröffentlicht – Nutzer
 sehen dann das Banner „Neue Version verfügbar".
+
+<!-- Veröffentlichungs-Anstoß: 2026-07-03 10:11 -->
