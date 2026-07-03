@@ -662,6 +662,24 @@ function baueZaehler(){
   });
 }
 
+/* Wisch-Geste: von links nach rechts = eine Ebene zurück */
+let _wx=null,_wy=null;
+document.addEventListener("touchstart",ev=>{const b=ev.touches[0];_wx=b.clientX;_wy=b.clientY},{passive:true});
+document.addEventListener("touchend",ev=>{
+  if(_wx===null)return;
+  const b=ev.changedTouches[0];
+  const dx=b.clientX-_wx, dy=b.clientY-_wy;
+  _wx=null;_wy=null;
+  if(dx<90||Math.abs(dy)>70)return;
+  if(document.getElementById("editOverlay").classList.contains("offen"))return;
+  if(document.getElementById("tourOverlay").classList.contains("offen"))return;
+  if(document.getElementById("detail").style.display==="block"){
+    offenId=null;kontextZurueck();window.scrollTo(0,0);
+  }else if(aktBereich){
+    suchText="";document.getElementById("suche").value="";zeigeStart();window.scrollTo(0,0);
+  }
+},{passive:true});
+
 baueFilter();
 baueZaehler();
 zeigeStart();
