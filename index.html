@@ -225,7 +225,7 @@ body.editing #editLeiste{display:block}
   </div>
   <div class="klein">
     © Michael Baur · Kontakt: <a href="mailto:mibaur@me.com">mibaur@me.com</a><br>
-    <a href="ueber-mich/">Über mich</a> · <a href="gaestebuch/">Gästebuch</a> · <a href="impressum/">Impressum &amp; Datenschutz</a><br>
+    <a href="ueber-mich/">Über mich</a> · <a href="impressum/">Impressum &amp; Datenschutz</a><br>
     <a href="#" id="editLink" style="color:#D9C2B5">✎ Rezepte bearbeiten</a>
   </div>
 </div></footer>
@@ -337,7 +337,6 @@ function zeigeListe(){
   });
   if(!alle.length)html='<div class="leer">Kein Rezept gefunden – Suche oder Filter ändern.</div>';
   html+='<button class="neu-btn" id="neuBtn">+ Neues Rezept anlegen</button>';
-  html+='<a class="kachel" href="gaestebuch/" style="text-decoration:none;color:inherit;margin-top:14px"><span class="ikon">📖</span><span><span class="kt">Gästebuch</span><br><span class="km">Rezept ausprobiert? Teile deine Erfahrungen, Tipps oder ein Lob!</span></span><span class="pfeil">›</span></a>';
   main.innerHTML=html;
   main.querySelectorAll(".kachel").forEach(k=>k.addEventListener("click",()=>zeigeDetail(k.dataset.id)));
   const nb=document.getElementById("neuBtn");
