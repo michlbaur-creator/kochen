@@ -19,6 +19,7 @@
   --rahmen:#E3D8C4; --tinte:#3A2A22; --grau:#8A7060; --gold:#C28A3A;
 }
 *{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--leit-dunkel)}
 body{font-family:Georgia,'Times New Roman',serif;background:var(--creme);color:var(--tinte);font-size:17px;line-height:1.55;-webkit-text-size-adjust:100%}
 a{color:var(--leit)}
 .banner{background:linear-gradient(180deg,var(--leit-dunkel) 0%,var(--leit) 100%);color:var(--creme);padding:24px 20px 22px;padding-top:max(24px,env(safe-area-inset-top));text-align:center;border-bottom:4px double var(--gold)}
@@ -93,8 +94,8 @@ body.editing .edit-knoepfe{display:flex}
 footer{background:linear-gradient(135deg,var(--leit-dunkel),var(--leit));color:var(--creme);padding:26px 18px 30px;padding-bottom:max(30px,calc(env(safe-area-inset-bottom) + 16px));margin-top:30px}
 footer .fin{max-width:720px;margin:0 auto}
 footer h4{font-weight:normal;font-size:17px;margin-bottom:10px;color:#E8D5C9}
-.entdecken{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
-.echip{background:rgba(247,243,232,.12);border:1px solid rgba(247,243,232,.35);border-radius:18px;padding:4px 11px;font-size:13px;color:var(--creme);text-decoration:none}
+.entdecken{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+.echip{background:rgba(247,243,232,.12);border:1px solid rgba(247,243,232,.35);border-radius:18px;padding:3px 9px;font-size:12px;color:var(--creme);text-decoration:none}
 footer .klein{font-size:13.5px;color:#D9C2B5;line-height:2}
 footer a{color:var(--creme)}
 #editLeiste{display:none;position:sticky;bottom:0;background:#3A2A22;color:var(--creme);padding:10px 16px;z-index:40}
@@ -223,8 +224,8 @@ body.editing #editLeiste{display:block}
     <a class="echip" href="https://mibaso.de">🌻 mibaso.de</a>
   </div>
   <div class="klein">
-    Kontakt: <a href="mailto:mibaur@me.com">mibaur@me.com</a><br>
-    © Michael Baur · <a href="ueber-mich/">Über mich</a> · <a href="gaestebuch/">Gästebuch</a> · <a href="impressum/">Impressum &amp; Datenschutz</a><br>
+    © Michael Baur · Kontakt: <a href="mailto:mibaur@me.com">mibaur@me.com</a><br>
+    <a href="ueber-mich/">Über mich</a> · <a href="gaestebuch/">Gästebuch</a> · <a href="impressum/">Impressum &amp; Datenschutz</a><br>
     <a href="#" id="editLink" style="color:#D9C2B5">✎ Rezepte bearbeiten</a>
   </div>
 </div></footer>
