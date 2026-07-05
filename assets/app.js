@@ -7,6 +7,12 @@ if ('serviceWorker' in navigator) {
       });
     });
     if (reg.waiting && navigator.serviceWorker.controller) zeigeUpdateBanner(reg);
+    // iOS-Failsafe: Beim Zurückholen der App (aus dem Hintergrund) aktiv nach einer
+    // neuen Version suchen — sonst merkt eine nur „aufgeweckte" PWA das Update erst
+    // nach echtem App-Neustart. update() braucht Netz; offline passiert einfach nichts.
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') reg.update().catch(() => {});
+    });
   }).catch(() => {});
   let neuGeladen = false;
   navigator.serviceWorker.addEventListener('controllerchange', () => {
