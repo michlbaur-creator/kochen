@@ -16,7 +16,8 @@
 <style>
 :root{
   --leit:#6E2A3A; --leit-dunkel:#4A1C27; --creme:#F7F3E8; --karte:#FFFFFF;
-  --rahmen:#E3D8C4; --tinte:#3A2A22; --grau:#8A7060; --gold:#C28A3A;
+  --rahmen:#D7CFBA; --linie:#D7CFBA; --tinte:#3A2A22; --grau:#8A7060; --gold:#C28A3A;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{background:var(--leit-dunkel)}
@@ -59,8 +60,8 @@ details.akk[open] summary::after{transform:rotate(-90deg)}
 details.akk .akkin{padding:0 14px 13px;font-size:15.5px}
 .btext p{margin-bottom:12px}
 main{max-width:720px;margin:0 auto;padding:6px 16px 40px}
-h2.kat{font-size:25px;font-weight:normal;margin:26px 0 2px}
-.strich{width:38px;height:3px;margin:2px 0 12px;border-radius:2px}
+h2.kat{font-family:var(--sans);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:700;margin:26px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--linie)}
+.strich{width:100%;height:1px;margin:4px 0 12px;border-radius:0;background:var(--linie)!important}
 .kachel{display:flex;align-items:center;gap:12px;background:var(--karte);border:1px solid var(--rahmen);border-radius:12px;padding:12px 14px;margin-bottom:9px;cursor:pointer}
 .kachel:active{background:#FBF7EE}
 .kachel .ikon{font-size:26px;flex-shrink:0}
@@ -77,8 +78,7 @@ body.editing .neu-btn{display:block}
 #detail .beschr{font-style:italic;color:var(--grau);margin-bottom:10px}
 .meta{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 4px}
 .mchip{background:var(--karte);border:1px solid var(--rahmen);border-radius:14px;padding:3px 12px;font-size:13.5px;color:var(--tinte)}
-#detail h3{font-size:20px;font-weight:normal;margin:20px 0 2px}
-#detail h3 .strich{margin-top:3px}
+#detail h3,main h3{font-family:var(--sans);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:700;margin:22px 0 10px;padding-bottom:8px;border-bottom:1px solid var(--linie)}
 ul.zutaten{list-style:none;background:var(--karte);border:1px solid var(--rahmen);border-radius:12px;padding:12px 16px;margin-top:8px}
 ul.zutaten li{padding:4px 0;border-bottom:1px dotted var(--rahmen)}
 ul.zutaten li:last-child{border-bottom:none}
@@ -123,7 +123,7 @@ body.editing #editLeiste{display:block}
 .blase .zu{float:right;border:none;background:none;font-size:20px;cursor:pointer;color:var(--grau)}
 .banz{font-size:12.5px;color:var(--gold)}
 h2.bkopf{font-size:24px;font-weight:normal;margin:14px 0 2px}
-details.kat-akk summary{display:flex;align-items:center;gap:9px;font-size:17px}
+details.kat-akk summary{display:flex;align-items:center;gap:9px;font-size:17px;color:var(--leit)}
 details.kat-akk summary .kanz{margin-left:auto;font-weight:normal;font-size:13px;color:var(--grau)}
 details.kat-akk .akkin{padding:4px 10px 11px}
 details.binfo{margin:6px 0 16px}
@@ -170,7 +170,7 @@ details.binfo .akkin img.foto{width:100%;border-radius:10px;margin:8px 0 12px;bo
 <p>Der Ninja Artisan ist die neueste Errungenschaft in unserer Küche. Er heizt deutlich heißer als ein normaler Backofen und sorgt für knusprige Böden, luftige Ränder und erstaunlich gute Ergebnisse.</p>
 <p>Nach den ersten Pizzen war schnell klar: Ganz ohne Übung geht es nicht. Deshalb findest du hier nicht nur Rezepte, sondern auch kleine Tipps und Erfahrungen aus der Praxis – vom Fertigteig bis zur selbstgemachten Pizza.</p>
 </div>
-<h3 style="color:#C4603A">Viele Wege führen in den Ofen</h3><div class="strich" style="background:#C4603A"></div>
+<h3>Viele Wege führen in den Ofen</h3>
 <details class="akk"><summary>Fertigteig von der Rolle</summary><div class="akkin"><i>Die einfachste und schnellste Möglichkeit: Pizza-Fertigteig von der Rolle.</i> Der Teig sollte möglichst <b>kein</b> Backpulver, keinen Alkohol und keinen Kleber enthalten.<br><br>
 <b>1. Ofen vorheizen (ca. 15–20 Min.):</b> Schalte den Ninja Artisan auf die Einstellung <b>Pizza</b> und wähle das Profil <b>Artisan</b>. Lass den Ofen mitsamt dem Pizzastein vollständig aufheizen, bis das Signal ertönt.<br><br>
 <b>2. Teig ausrollen:</b> Rolle den Teig aus und schneide ihn in die gewünschte Größe (meistens reicht eine Rolle für zwei kleinere Artisan-Pizzen). Direkt vor dem Belegen: Löse den Teig vom Papier und bestreue die Arbeitsfläche (Pizzaschale/Schaufel) mit etwas Hartweizengrieß (Semola). Forme evtl. einen ca. 2 cm hohen Rand.<br><br>
@@ -193,7 +193,7 @@ details.binfo .akkin img.foto{width:100%;border-radius:10px;margin:8px 0 12px;bo
 <b>Das Produkt:</b> Du erhältst perfekt portionierte Teigkugeln (meist ca. 250 g), die aus echtem italienischen <i>Tipo 00</i>-Mehl, Wasser, Salz und minimaler Hefe hergestellt und nach der optimalen Reifezeit schockgefrostet wurden. Absolut keine Chemie, kein Alkohol, kein künstlicher Kleber.<br><br>
 <b>Der Versand:</b> Erfolgt in Styroporboxen mit Trockeneis. Die Kugeln kommen tiefgekühlt bei dir an und wandern direkt in deinen Gefrierschrank.<br><br>
 <b>Die Anwendung:</b> Am Vortag einfach die gewünschte Anzahl Kugeln in einer abgedeckten Form in den Kühlschrank legen (zum Auftauen und langsamen Erwachen) und am Backtag 3 bis 4 Stunden vorher bei Raumtemperatur akklimatisieren lassen.</div></details>
-<h3 style="color:#2C7A6A">Die besten Tricks</h3><div class="strich" style="background:#2C7A6A"></div>
+<h3>Die besten Tricks</h3>
 <details class="akk"><summary>💡 Der Teig zieht sich wie Gummi zusammen?</summary><div class="akkin">Knete den Fertigteig von der Rolle nach dem Auspacken kurz zu einer glatten Kugel und lass ihn <b>mindestens 45 Minuten bei Raumtemperatur</b> abgedeckt ruhen. Das entspannt das Klebereiweiß (Gluten) komplett. Danach lässt sich der Teig mühelos von innen nach außen hauchdünn ausziehen, ohne zurückzuspringen, und der Rand geht im Ofen wunderbar luftig auf.</div></details>
 <details class="akk"><summary>🚫 Hilfe, die Pizza klebt auf der Schale fest!</summary><div class="akkin">Verwende zum Ausformen des Teigs und für die Pizzaschale <b>Hartweizengrieß (Semola)</b> statt normalem Mehl. Semola wirkt unter dem Teig wie winzige Kugellager, sodass die Pizza mühelos auf den heißen Stein gleitet. Normales Mehl verbrennt bei den 370 °C des Ninja Artisan sofort schwarz und hinterlässt einen bitteren Geschmack auf dem Pizzaboden.<br><br>Erst kurz vor dem Einschieben und nicht zu dick belegen.</div></details>
 <details class="akk"><summary>🌿 Verbrannter, bitterer Oregano auf der Pizza?</summary><div class="akkin">Streue getrocknete Kräuter wie Oregano <b>niemals oben auf den Käse</b>, da sie bei der enormen Oberhitze im Artisan in Sekunden verbrennen. <b>Der Hack:</b> Rühre den Oregano direkt in die kalte Tomatensauce ein. Die Feuchtigkeit der Tomaten schützt die Kräuter beim Backen, sodass sie ihr volles Pizzeria-Aroma entfalten, ohne bitter zu werden.</div></details>
@@ -349,8 +349,7 @@ function zeigeStart(){
     kats.forEach(kat=>{
       const rs=alle.filter(r=>r.category===kat);
       if(!rs.length)return;
-      const farbe=FARBEN[fi++ % FARBEN.length];
-      html+='<h2 class="kat" style="color:'+farbe+'">'+esc(kat)+'</h2><div class="strich" style="background:'+farbe+'"></div>';
+      html+='<h2 class="kat">'+esc(kat)+'</h2>';
       rs.forEach(r=>{html+=rezeptKachel(r,kat)});
     });
     if(!alle.length)html='<div class="leer">Kein Rezept gefunden – Suche ändern.</div>';
@@ -379,7 +378,7 @@ function zeigeDetail(id){
   if(r.servings)chips.push("👥 "+r.servings+" Portionen");
   if(chips.length)html+='<div class="meta">'+chips.map(c=>'<span class="mchip">'+esc(c)+'</span>').join("")+'</div>';
   if((r.ingredients||[]).length){
-    html+='<h3 style="color:#C4603A">Zutaten</h3><div class="strich" style="background:#C4603A"></div><ul class="zutaten">';
+    html+='<h3>Zutaten</h3><ul class="zutaten">';
     r.ingredients.forEach(z=>{
       const m=String(z).match(/^[—–-]\s*(.+?)\s*[—–-]$/);
       html+= m ? '<li class="zgrp">'+esc(m[1])+'</li>' : '<li>'+esc(z)+'</li>';
@@ -387,7 +386,7 @@ function zeigeDetail(id){
     html+='</ul>';
   }
   if((r.steps||[]).length){
-    html+='<h3 style="color:#2C7A6A">Zubereitung</h3><div class="strich" style="background:#2C7A6A"></div><ol class="schritte">';
+    html+='<h3>Zubereitung</h3><ol class="schritte">';
     r.steps.forEach(s=>{
       const t=String(s);const doppel=t.match(/^(.{3,60}?):\s(.+)$/s);
       html+= doppel ? '<li><b>'+esc(doppel[1])+':</b> '+esc(doppel[2])+'</li>' : '<li>'+esc(t)+'</li>';
@@ -587,9 +586,8 @@ function zeigeBereich(key){
     const rs=alle.filter(r=>r.category===kat);
     if(!rs.length)return;
     treffer+=rs.length;
-    const farbe=FARBEN[fi++ % FARBEN.length];
     const auf=(suchText!=="")||(offenKat[key]===kat);
-    html+='<details class="akk kat-akk"'+(auf?" open":"")+' data-kat="'+esc(kat)+'"><summary style="color:'+farbe+'">'+(KAT_IKON[kat]||"🍽️")+' '+esc(kat)+'<span class="kanz">'+rs.length+'</span></summary><div class="akkin">';
+    html+='<details class="akk kat-akk"'+(auf?" open":"")+' data-kat="'+esc(kat)+'"><summary>'+(KAT_IKON[kat]||"🍽️")+' '+esc(kat)+'<span class="kanz">'+rs.length+'</span></summary><div class="akkin">';
     rs.forEach(r=>{html+=rezeptKachel(r,kat)});
     html+='</div></details>';
   });
