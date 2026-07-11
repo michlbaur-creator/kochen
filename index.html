@@ -529,7 +529,7 @@ document.getElementById("tourOverlay").addEventListener("click",ev=>{if(ev.targe
 document.getElementById("editOverlay").addEventListener("click",ev=>{if(ev.target.id==="editOverlay")document.getElementById("editOverlay").classList.remove("offen")});
 
 (function(){
-  if(localStorage.getItem("kochen-tour-gesehen"))return;
+  if(localStorage.getItem("kochen-install-zu"))return;
   const standalone=(window.matchMedia&&window.matchMedia("(display-mode: standalone)").matches)||navigator.standalone;
   if(standalone)return;
   const ua=navigator.userAgent;
@@ -543,7 +543,7 @@ document.getElementById("editOverlay").addEventListener("click",ev=>{if(ev.targe
 })();
 document.getElementById("blaseZu").addEventListener("click",()=>{
   document.getElementById("installBlase").classList.remove("offen");
-  localStorage.setItem("kochen-tour-gesehen","1");
+  localStorage.setItem("kochen-install-zu","1");
 });
 
 
