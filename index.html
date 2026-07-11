@@ -533,11 +533,11 @@ document.getElementById("editOverlay").addEventListener("click",ev=>{if(ev.targe
   const standalone=(window.matchMedia&&window.matchMedia("(display-mode: standalone)").matches)||navigator.standalone;
   if(standalone)return;
   const ua=navigator.userAgent;
-  const istIOS=/iPhone|iPad|iPod/.test(ua);
+  const istIOS=/iPhone|iPad|iPod/.test(ua)||(/Macintosh/.test(ua)&&'ontouchend' in document);
   const istAndroid=/Android/.test(ua);
   if(!istIOS&&!istAndroid)return;
   document.getElementById("installText").textContent= istIOS
-    ? "Unten in Safari auf das Teilen-Symbol (Viereck mit Pfeil) tippen, dann „Zum Home-Bildschirm“."
+    ? "Oben rechts auf das Teilen-Symbol → „In Chrome (alternativ Safari) öffnen“. Dort noch einmal das Teilen-Symbol (evtl. vorher „Mehr anzeigen“) → „Zum Home-Bildschirm“ → „Hinzufügen“."
     : "Oben rechts auf die drei Punkte tippen, dann „App installieren“ bzw. „Zum Startbildschirm hinzufügen“.";
   setTimeout(()=>document.getElementById("installBlase").classList.add("offen"),1500);
 })();
