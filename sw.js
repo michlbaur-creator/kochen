@@ -1,4 +1,4 @@
-const VERSION = 'kochen-shell-v2';
+const VERSION = 'kochen-shell-v3';
 const KERN = ['./', './index.html', './manifest.webmanifest', './assets/app.js', './assets/icon-192.png'];
 
 self.addEventListener('install', e => {
