@@ -406,7 +406,7 @@ function zeigeDetail(id){
   html+='<div class="edit-knoepfe"><button class="ebtn" id="detEdit">✎ Bearbeiten</button><button class="ebtn rot" id="detWeg">🗑 Löschen</button></div>';
   d.innerHTML=html;
   d.querySelector(".zurueck").addEventListener("click",()=>{offenId=null;kontextZurueck();window.scrollTo(0,0)});
-  document.getElementById("detDruck").addEventListener("click",()=>{const t=document.title;document.title=r.title+" – kochen.mibaso.de";window.addEventListener("afterprint",()=>{document.title=t},{once:true});window.print()});
+  document.getElementById("detDruck").addEventListener("click",()=>druckeRezept(r));
   const be=document.getElementById("detEdit"); if(be)be.addEventListener("click",()=>oeffneEditor(id));
   const bw=document.getElementById("detWeg"); if(bw)bw.addEventListener("click",()=>{
     if(!confirm("Dieses Rezept wirklich löschen?"))return;
@@ -422,6 +422,114 @@ function zeigeDetail(id){
   document.getElementById("bereiche").style.display="none";
   d.style.display="block";
   window.scrollTo(0,0);
+}
+
+/* ---------- Rezept als PDF (für die Home-Bildschirm-App auf iPhone/iPad, dort gibt es kein window.print) ---------- */
+function rezeptPdf(r,bild){
+  const W=595.28,H=841.89,M=43,CW=W-2*M;
+  const cx=document.createElement("canvas").getContext("2d");
+  const FN={n:"F1",b:"F2",i:"F3",bi:"F4",h:"F5"};
+  const CSSF={n:"",b:"bold ",i:"italic ",bi:"italic bold ",h:"bold "};
+  const breite=(t,f,g)=>{cx.font=CSSF[f]+g+"px "+(f==="h"?"Helvetica,Arial,sans-serif":'"Times New Roman",Times,serif');return cx.measureText(t).width*1.02};
+  const CP="\u20ac\u0081\u201a\u0192\u201e\u2026\u2020\u2021\u02c6\u2030\u0160\u2039\u0152\u008d\u017d\u008f\u0090\u2018\u2019\u201c\u201d\u2022\u2013\u2014\u02dc\u2122\u0161\u203a\u0153\u009d\u017e\u0178";
+  const enc=t=>{let o="";for(const ch of t){let c=ch.codePointAt(0);
+    if(c>=128&&c<160)c=63;else if(c>255){const k=CP.indexOf(ch);c=k>=0?128+k:63}
+    o+=(c===40||c===41||c===92)?"\\"+String.fromCharCode(c):c>126?"\\"+c.toString(8):String.fromCharCode(c)}return o};
+  const putz=t=>String(t==null?"":t).replace(/\p{Extended_Pictographic}|\ufe0f|\u200d/gu,"").replace(/\u2192/g,"\u203a").replace(/\u2011/g,"-").replace(/[\u00a0\u202f\u2009]/g," ").replace(/\u2153/g,"1/3").replace(/\s+/g," ");
+  const sauber=t=>putz(t).trim();
+
+  /* Foto: zugeschnitten und verkleinert über ein Canvas (fremde Bild-Adressen lassen sich nicht auslesen, dann ohne Foto) */
+  let foto=null;
+  try{
+    if(bild&&bild.complete&&bild.naturalWidth){
+      const fw=CW*0.36,fh=Math.min(fw*bild.naturalHeight/bild.naturalWidth,240);
+      const sh=bild.naturalWidth*fh/fw,sy=(bild.naturalHeight-sh)/2;
+      const c=document.createElement("canvas");c.width=Math.min(bild.naturalWidth,640);c.height=Math.round(c.width*fh/fw);
+      c.getContext("2d").drawImage(bild,0,sy,bild.naturalWidth,sh,0,0,c.width,c.height);
+      foto={w:fw,h:fh,pw:c.width,ph:c.height,bin:atob(c.toDataURL("image/jpeg",0.85).split(",")[1])};
+    }
+  }catch(e){foto=null}
+
+  const seiten=[];let s="",y=H-M;
+  const fotoUnten=foto?H-M-foto.h:H;
+  const br=g=>(foto&&!seiten.length&&y+g>fotoUnten-8)?CW-foto.w-16:CW;
+  const neu=()=>{seiten.push(s);s="";y=H-M};
+  const text=(t,x,yy,f,g,grau,sperr)=>{s+="BT /"+FN[f]+" "+g+" Tf "+(grau?grau+" g ":"0 g ")+(sperr?sperr+" Tc ":"")+x.toFixed(1)+" "+yy.toFixed(1)+" Td ("+enc(t)+") Tj"+(sperr?" 0 Tc":"")+" ET\n"};
+  const umbruch=(runs,g,b)=>{const z=[];let akt=[],w=0;
+    runs.forEach(ru=>ru.t.split(/(\s+)/).forEach(tok=>{
+      if(!tok)return;
+      if(/^\s+$/.test(tok)){if(akt.length){const tw=breite(" ",ru.f,g);akt.push({t:" ",f:ru.f,w:tw});w+=tw}return}
+      const tw=breite(tok,ru.f,g);
+      if(w+tw>b&&akt.length){while(akt.length&&akt[akt.length-1].t===" ")w-=akt.pop().w;z.push(akt);akt=[];w=0}
+      akt.push({t:tok,f:ru.f,w:tw});w+=tw;
+    }));
+    while(akt.length&&akt[akt.length-1].t===" ")akt.pop();
+    if(akt.length)z.push(akt);return z};
+  const zeile=(z,x,yy,g,grau)=>{let i=0;while(i<z.length){let j=i,t="",w=0;while(j<z.length&&z[j].f===z[i].f){t+=z[j].t;w+=z[j].w;j++}text(t,x,yy,z[i].f,g,grau);x+=w;i=j}};
+  /* Absatz setzen; passt er nicht mehr auf die Seite, kommt er komplett auf die nächste */
+  const block=(runs,g,o)=>{o=o||{};const ein=o.ein||0,zh=g*(o.zh||1.32);
+    let z=umbruch(runs,g,br(g)-ein);
+    if(y-(o.vor||0)-z.length*zh<M+16){neu();z=umbruch(runs,g,br(g)-ein)}
+    y-=(o.vor||0);const oben=y;
+    z.forEach((l,i)=>{y-=zh;if(i===0&&o.marke)text(o.marke,M,y,"n",g,"0.35");zeile(l,M+ein,y,g,o.grau)});
+    if(o.balken)s+="0.76 0.54 0.23 rg "+M+" "+(y-4).toFixed(1)+" 2.5 "+(oben-y+2).toFixed(1)+" re f\n";
+    y-=(o.nach||0)};
+  const kopf=t=>{if(y<M+90)neu();y-=24;const b=br(8);text(t.toUpperCase(),M,y,"h",8,"0.45","1.3");y-=6;s+="0.7 G 0.5 w "+M+" "+y.toFixed(1)+" m "+(M+b).toFixed(1)+" "+y.toFixed(1)+" l S\n";y-=4};
+
+  block([{t:sauber(r.title),f:"n"}],20,{zh:1.2,nach:4});
+  if(r.desc)block([{t:sauber(r.desc),f:"i"}],11,{grau:"0.35",nach:2});
+  const meta=[(r.device||[]).join(", "),r.time,r.temp,r.mode,r.servings?r.servings+" Portionen":""].map(sauber).filter(x=>x&&x!=="—").join("  ·  ");
+  if(meta)block([{t:meta,f:"n"}],10,{grau:"0.35"});
+  if((r.ingredients||[]).length){
+    kopf("Zutaten");
+    r.ingredients.forEach(z=>{const m=String(z).match(/^[—–-]\s*(.+?)\s*[—–-]$/);
+      if(m)block([{t:sauber(m[1]),f:"bi"}],11,{vor:5});else block([{t:sauber(z),f:"n"}],11,{nach:1})});
+  }
+  if(foto&&!seiten.length&&y>fotoUnten-4)y=fotoUnten-4;
+  if((r.steps||[]).length){
+    kopf("Zubereitung");
+    r.steps.forEach((st,i)=>{const t=String(st),d=t.match(/^(.{3,60}?):\s(.+)$/s),runs=[];
+      if(d)runs.push({t:sauber(d[1])+": ",f:"b"});
+      (d?d[2]:t).split(/\*\*(.+?)\*\*/).forEach((x,k)=>{if(x)runs.push({t:putz(x),f:k%2?"b":"n"})});
+      block(runs,11,{ein:20,marke:(i+1)+".",vor:i?4:0})});
+  }
+  if(sauber(r.tip))block([{t:"Tipp: ",f:"b"},{t:sauber(r.tip),f:"i"}],11,{ein:10,vor:14,balken:1});
+  seiten.push(s);
+
+  /* PDF-Datei zusammenbauen */
+  const obj=[];const add=t=>{obj.push(t);return obj.length};
+  add("<< /Type /Catalog /Pages 2 0 R >>");add("");
+  const fonts=["Times-Roman","Times-Bold","Times-Italic","Times-BoldItalic","Helvetica-Bold"].map(n=>add("<< /Type /Font /Subtype /Type1 /BaseFont /"+n+" /Encoding /WinAnsiEncoding >>"));
+  let res="<< /Font << "+fonts.map((n,i)=>"/F"+(i+1)+" "+n+" 0 R").join(" ")+" >>";
+  if(foto){const io=add("<< /Type /XObject /Subtype /Image /Width "+foto.pw+" /Height "+foto.ph+" /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length "+foto.bin.length+" >>\nstream\n"+foto.bin+"\nendstream");res+=" /XObject << /Im1 "+io+" 0 R >>"}
+  res+=" >>";
+  const fuss="kochen.mibaso.de",kids=[];
+  seiten.forEach((inh,i)=>{
+    if(i===0&&foto)inh="q "+foto.w.toFixed(2)+" 0 0 "+foto.h.toFixed(2)+" "+(W-M-foto.w).toFixed(2)+" "+fotoUnten.toFixed(2)+" cm /Im1 Do Q\n"+inh;
+    inh+="BT /F1 9 Tf 0.45 g "+(W-M-breite(fuss,"n",9)).toFixed(1)+" 26 Td ("+fuss+") Tj ET\n";
+    if(seiten.length>1)inh+="BT /F1 9 Tf 0.45 g "+M+" 26 Td (Seite "+(i+1)+" von "+seiten.length+") Tj ET\n";
+    const c=add("<< /Length "+inh.length+" >>\nstream\n"+inh+"\nendstream");
+    kids.push(add("<< /Type /Page /Parent 2 0 R /MediaBox [0 0 "+W+" "+H+"] /Resources "+res+" /Contents "+c+" 0 R >>")+" 0 R")});
+  obj[1]="<< /Type /Pages /Kids ["+kids.join(" ")+"] /Count "+kids.length+" >>";
+  let out="%PDF-1.4\n%\xE2\xE3\xCF\xD3\n";const offs=[];
+  obj.forEach((o,i)=>{offs.push(out.length);out+=(i+1)+" 0 obj\n"+o+"\nendobj\n"});
+  const xref=out.length;
+  out+="xref\n0 "+(obj.length+1)+"\n0000000000 65535 f \n"+offs.map(o=>String(o).padStart(10,"0")+" 00000 n \n").join("")+"trailer\n<< /Size "+(obj.length+1)+" /Root 1 0 R >>\nstartxref\n"+xref+"\n%%EOF";
+  const bytes=new Uint8Array(out.length);for(let i=0;i<out.length;i++)bytes[i]=out.charCodeAt(i)&255;
+  return bytes;
+}
+function druckeRezept(r){
+  if(navigator.standalone!==true){
+    const t=document.title;document.title=r.title+" – kochen.mibaso.de";
+    window.addEventListener("afterprint",()=>{document.title=t},{once:true});window.print();return;
+  }
+  const hinweis=()=>alert("Drucken klappt in der Home-Bildschirm-App hier leider nicht. Öffne kochen.mibaso.de in Safari und tippe dort auf „Drucken“.");
+  try{
+    const name=(r.title||"Rezept").replace(/[^\wäöüÄÖÜß]+/g,"-").replace(/^-+|-+$/g,"")+".pdf";
+    const datei=new File([rezeptPdf(r,document.querySelector("#detail img.foto"))],name,{type:"application/pdf"});
+    if(navigator.canShare&&navigator.canShare({files:[datei]}))navigator.share({files:[datei]}).catch(e=>{if(e&&e.name!=="AbortError")hinweis()});
+    else hinweis();
+  }catch(e){hinweis()}
 }
 
 function baueFilter(){
