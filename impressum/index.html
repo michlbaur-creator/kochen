@@ -71,5 +71,14 @@ werden. Für Inhalte verlinkter externer Seiten sind ausschließlich deren
 Betreiber verantwortlich.</p>
 <p style="margin-top:22px;color:var(--grau);font-size:15px">© 2026 Michael Baur · Kochen Mibaso</p>
 </main>
+<script>
+/* Wischen von links nach rechts = zurück zur App */
+(function(){let x=null,y=null;
+document.addEventListener("touchstart",e=>{if(e.touches.length>1){x=null;return}x=e.touches[0].clientX;y=e.touches[0].clientY},{passive:true});
+document.addEventListener("touchend",e=>{if(x===null)return;const t=e.changedTouches[0],dx=t.clientX-x,dy=t.clientY-y;x=null;
+  if(dx<70||Math.abs(dy)>dx*0.6)return;
+  if(document.referrer&&document.referrer.indexOf(location.host)>=0&&history.length>1)history.back();else location.href="../";
+},{passive:true});})();
+</script>
 </body>
 </html>
