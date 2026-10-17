@@ -793,7 +793,10 @@ function baueZaehler(){
 
 /* Wisch-Geste: von links nach rechts = eine Ebene zurück */
 let _wx=null,_wy=null;
-document.addEventListener("touchstart",ev=>{if(ev.touches.length>1){_wx=null;return}const b=ev.touches[0];_wx=b.clientX;_wy=b.clientY},{passive:true});
+const _istIOS=/iPhone|iPad|iPod/.test(navigator.userAgent)||(/Macintosh/.test(navigator.userAgent)&&"ontouchend" in document);
+document.addEventListener("touchstart",ev=>{if(ev.touches.length>1){_wx=null;return}const b=ev.touches[0];
+  if(_istIOS&&b.clientX<30&&ebene()!=="start"){_wx=null;return} /* Randgeste: macht iOS selbst */
+  _wx=b.clientX;_wy=b.clientY},{passive:true});
 document.addEventListener("touchend",ev=>{
   if(_wx===null)return;
   const b=ev.changedTouches[0];
@@ -1048,8 +1051,14 @@ document.getElementById("kmZu").addEventListener("click",()=>{if(ebene()==="koch
    alle zuverlässig genau eine Ebene zurück. */
 function ebene(){return (history.state&&history.state.v)||"start"}
 function navPush(st){try{history.pushState(st,"")}catch(e){}}
+/* iPhone/iPad haben eine eigene Zurück-Wischgeste am linken Rand. Wischt man dort, kamen
+   bisher ZWEI Zurück-Schritte an (unsere Geste + die des Systems, oft mit Verzögerung).
+   Lösung: Schritte, die wir selbst auslösen, werden markiert. Kommt kurz danach noch ein
+   fremder Zurück-Schritt hinterher, wird er sofort wieder rückgängig gemacht. */
+let _eigenZurueck=0,_letztesZurueck=0,_korrektur=false,_letzteArt="",_letzterZustand={v:"start"};
+function ebeneTiefe(st){return {start:0,bereich:1,detail:2,koch:3}[(st&&st.v)||"start"]||0}
 function eineEbeneZurueck(){
-  if(ebene()!=="start"){history.back();return}
+  if(ebene()!=="start"){_eigenZurueck++;history.back();return}
   /* Fallback ohne Verlaufseintrag */
   if(kmRezept){kochmodusZu(true);return}
   if(document.getElementById("detail").style.display==="block"){offenId=null;kontextZurueck();window.scrollTo(0,0)}
@@ -1068,6 +1077,16 @@ function zeigeZustand(st,mitKoch){
 }
 window.addEventListener("popstate",ev=>{
   const st=ev.state||{v:"start"};
+  if(_korrektur){_korrektur=false}
+  else{
+    const art=_eigenZurueck>0?"eigen":"fremd"; if(_eigenZurueck>0)_eigenZurueck--;
+    const jetzt=Date.now();
+    if(jetzt-_letztesZurueck<6000&&art!==_letzteArt&&st.v!=="koch"&&ebeneTiefe(st)<ebeneTiefe(_letzterZustand)){
+      _letztesZurueck=0;_korrektur=true;history.forward();return; /* doppelter Zurück-Schritt → rückgängig */
+    }
+    _letztesZurueck=jetzt;_letzteArt=art;
+  }
+  _letzterZustand=st;
   if(kmRezept&&st.v!=="koch"){
     if(!kochmodusZu()){navPush({v:"koch",b:aktBereich,id:offenId});return}
   }
