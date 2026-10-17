@@ -56,7 +56,24 @@ details.akk{background:var(--karte);border:1px solid var(--rahmen);border-radius
 details.akk summary{cursor:pointer;padding:12px 40px 12px 14px;font-weight:bold;font-size:16px;list-style:none;position:relative}
 details.akk summary::-webkit-details-marker{display:none}
 details.akk summary::after{content:"\203A";position:absolute;right:16px;top:10px;font-size:20px;color:var(--grau);transform:rotate(90deg)}
-details.akk[open] summary::after{transform:rotate(-90deg)}
+details.akk[open]>summary::after{transform:rotate(-90deg)}
+details.akk summary small{display:block;font-weight:normal;font-size:13.5px;color:var(--grau);margin-top:1px}
+/* Bereichs-Eingangsseite */
+.bhero{position:relative;border-radius:16px;overflow:hidden;margin:2px 0 14px;border:1px solid var(--rahmen);background:var(--leit)}
+.bhero img{display:block;width:100%;height:210px;object-fit:cover}
+.bhero .bh-text{position:absolute;left:0;right:0;bottom:0;padding:40px 16px 14px;background:linear-gradient(180deg,rgba(40,20,25,0) 0%,rgba(40,20,25,.78) 70%);color:#fff}
+.bhero h2{font-size:27px;font-weight:normal;line-height:1.15;margin:0;color:#fff}
+.bhero .bh-unter{font-style:italic;font-size:15.5px;color:#F1E3D6;margin-top:3px}
+@media(min-width:600px){.bhero img{height:280px}}
+.bintro p{margin-bottom:10px}
+h3.bsek{font-family:var(--sans);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:700;margin:24px 0 10px;padding-bottom:8px;border-bottom:1px solid var(--linie)}
+.bwissen h3{font-family:Georgia,serif;font-size:16px;letter-spacing:0;text-transform:none;color:var(--leit);font-weight:bold;margin:16px 0 8px;padding:0;border:none}
+.pdfkarte{display:flex;align-items:center;gap:12px;background:var(--karte);border:1px solid var(--rahmen);border-left:4px solid var(--gold);border-radius:12px;padding:12px 14px;margin-bottom:9px;text-decoration:none;color:var(--tinte)}
+.pdfkarte:active{background:#FBF7EE}
+.pdfkarte .pk-ikon{font-size:28px;flex-shrink:0}
+.pdfkarte .pk-t{font-weight:bold;font-size:16px;display:block}
+.pdfkarte .pk-x{font-size:13.5px;color:var(--grau);display:block;line-height:1.4}
+.pdfkarte .pfeil{margin-left:auto;color:var(--grau);font-size:20px;flex-shrink:0}
 details.akk .akkin{padding:0 14px 13px;font-size:15.5px}
 .btext p{margin-bottom:12px}
 main{max-width:720px;margin:0 auto;padding:6px 16px 40px}
@@ -229,35 +246,38 @@ ol.schritte li::before{background:none;color:#000;border:1px solid #666;left:9px
 <p>Wir nutzen einen <b>Ninja Combi 12-in-1</b>. Und weil er so genial kocht, durfte auch noch der kleine Bruder – der <b>Speedi</b> – mit auf den Campingplatz.</p>
 <p>Beide Ninja-Geräte sind super – die Gerichte sowieso – wenn man’s denn richtig macht. Und das ist nicht immer ganz einfach. <b>Zwischen wirklich guten Online-Rezepten findet man im Netz halt auch jede Menge kulinarischen Sondermüll.</b> So entstand nach und nach diese persönliche Rezeptsammlung – nachgekocht, variiert, ausprobiert.</p>
 </div>
-<details class="akk"><summary>Vergleich Combi &amp; Speedi</summary><div class="akkin">Ich kann mit beiden Geräten ähnliche Ergebnisse erzielen. Aber nur der Combi verfügt über eine Seitentüre, die einen einfachen, beleuchteten Zugang zu den einzelnen Etagen erlaubt. Beim Speedi muss ich mit Hilfe einer Gabel oder Zange erst umständlich das obere Gitter entfernen, um nach ‚unten‘ zu gelangen.<br><br>Der Speedi punktet wiederum beim Anbraten. Da lässt er sich wie eine Pfanne benutzen.</div></details>
-<details class="akk"><summary>Mit dem Speedi nachkochen</summary><div class="akkin">Alle Rezepte hier sind für den Combi geschrieben. Mit dem Speedi klappen sie genauso – nur heißen ein paar Dinge anders:<br><br>• Combi Meal → Speedi Meals<br>• Combi Crisp → Steam Air Fry (Dampf-Heißluft-Frittieren)<br>• Wanne → Topf<br>• Oberes Blech → Crisper-Platte in der oberen Position<br>• Air Fry, Steam, Bake, Grill und Sear/Sauté heißen gleich.<br><br>Temperatur und Zeit kannst du übernehmen. Der Speedi-Topf ist etwas kleiner: große Stücke lieber halbieren und am Ende kurz prüfen, ob alles gar ist.</div></details>
-<details class="akk"><summary>Rezepte finden</summary><div class="akkin">• Alle Rezepte sind für 2 Personen gerechnet.<br>• Geschrieben für den Combi – mit dem Speedi geht’s auch (siehe „Mit dem Speedi nachkochen“).<br>• Die Suche oben ist meist der schnellste Weg.</div></details>
+<details class="akk"><summary>⚖️ Combi oder Speedi?<small>Was die beiden Geräte unterscheidet</small></summary><div class="akkin">Ich kann mit beiden Geräten ähnliche Ergebnisse erzielen. Aber nur der Combi verfügt über eine Seitentüre, die einen einfachen, beleuchteten Zugang zu den einzelnen Etagen erlaubt. Beim Speedi muss ich mit Hilfe einer Gabel oder Zange erst umständlich das obere Gitter entfernen, um nach ‚unten‘ zu gelangen.<br><br>Der Speedi punktet wiederum beim Anbraten. Da lässt er sich wie eine Pfanne benutzen.</div></details>
+<details class="akk"><summary>🔁 Mit dem Speedi nachkochen<small>Welche Namen sich ändern – Zeiten bleiben gleich</small></summary><div class="akkin">Alle Rezepte hier sind für den Combi geschrieben. Mit dem Speedi klappen sie genauso – nur heißen ein paar Dinge anders:<br><br>• Combi Meal → Speedi Meals<br>• Combi Crisp → Steam Air Fry (Dampf-Heißluft-Frittieren)<br>• Wanne → Topf<br>• Oberes Blech → Crisper-Platte in der oberen Position<br>• Air Fry, Steam, Bake, Grill und Sear/Sauté heißen gleich.<br><br>Temperatur und Zeit kannst du übernehmen. Der Speedi-Topf ist etwas kleiner: große Stücke lieber halbieren und am Ende kurz prüfen, ob alles gar ist.</div></details>
+<details class="akk"><summary>🔎 Rezepte finden<small>Portionen, Geräte und die Suche</small></summary><div class="akkin">• Alle Rezepte sind für 2 Personen gerechnet.<br>• Geschrieben für den Combi – mit dem Speedi geht’s auch (siehe „Mit dem Speedi nachkochen“).<br>• Die Suche oben ist meist der schnellste Weg.</div></details>
 </template>
 
 <template id="bereich-artisan">
-<div class="beschr">Der Ninja Artisan – heiß, klein und fein</div>
+<div class="beschr">Heiß, klein und fein</div>
 <div class="btext">
 <p>Der Ninja Artisan ist die neueste Errungenschaft in unserer Küche. Er heizt deutlich heißer als ein normaler Backofen und sorgt für knusprige Böden, luftige Ränder und erstaunlich gute Ergebnisse.</p>
 <p>Nach den ersten Pizzen war schnell klar: Ganz ohne Übung geht es nicht. Deshalb findest du hier nicht nur Rezepte, sondern auch kleine Tipps und Erfahrungen aus der Praxis – vom Fertigteig bis zur selbstgemachten Pizza.</p>
 </div>
 <h3>Viele Wege führen in den Ofen</h3>
-<details class="akk"><summary>Fertigteig von der Rolle</summary><div class="akkin"><i>Die einfachste und schnellste Möglichkeit: Pizza-Fertigteig von der Rolle.</i></div></details>
+<details class="akk"><summary>🛒 Fertigteig von der Rolle<small>Der schnellste Weg – auspacken, ruhen lassen, los</small></summary><div class="akkin"><i>Die einfachste und schnellste Möglichkeit: Pizza-Fertigteig von der Rolle.</i></div></details>
 
-<details class="akk"><summary>Teig handgemacht</summary><div class="akkin"><i>Für das echte Neapel-Feeling: Ein federleichter, bekömmlicher Teig mit riesigen Luftblasen im Rand.</i><br><br>
+<details class="akk"><summary>👐 Teig selbst gemacht<small>Neapel-Rezept mit großen Luftblasen – 1 Tag Vorlauf</small></summary><div class="akkin"><i>Für das echte Neapel-Feeling: Ein federleichter, bekömmlicher Teig mit riesigen Luftblasen im Rand.</i><br><br>
 <b>Zutaten (für 2 Pizzen):</b> 300 g Weizenmehl Type 00 · 190 ml kaltes Wasser · 8 g feines Salz · 1 g frische Hefe oder eine winzige Messerspitze Trockenhefe.<br><br>
 <b>1. Verrühren (kein langes Kneten!):</b> Löse die Hefe im Wasser auf. Gib die Hälfte des Mehls dazu und verrühre es zu einem Brei. Füge Salz und das restliche Mehl hinzu. Verrühre alles mit einem Löffel, bis ein klobiger Teigklumpen entsteht.<br><br>
 <b>2. Die Zauberpause:</b> Decke die Schüssel ab und lass sie 30 Minuten bei Raumtemperatur stehen. In dieser Zeit verbindet sich das Mehl von ganz alleine mit dem Wasser.<br><br>
 <b>3. Falten &amp; Ruhen:</b> Ziehe den Teig danach an den Seiten viermal nach oben und falte ihn in die Mitte. Er wird sofort spiegelglatt! Decke ihn wieder ab und stelle ihn für 20 bis 24 Stunden in den Kühlschrank (Gemüsefach).<br><br>
 <b>4. Ballen formen:</b> Hol den Teig 4 Stunden vor dem Backen heraus. Teile ihn in zwei Hälften und forme jede zu einer straffen, glatten Kugel. Lass diese abgedeckt 4 Stunden bei Raumtemperatur gehen.<br><br>
 <b>5. Ausziehen &amp; Backen:</b> Drücke die Kugel nur mit den Fingern von innen nach außen flach (kein Nudelholz!). Ziehe die Mitte hauchdünn aus. Auf die mit Semola bestreute Schale geben, zügig belegen und im Profil <b>Pizza → Artisan</b> ca. 2,5 bis 3 Minuten backen.</div></details>
-<details class="akk"><summary>Teigballen vom Profi</summary><div class="akkin"><i>Es gibt spezialisierte Pizza-Onlineshops (z. B. Waldis Pizza Shop), die tiefgekühlte Teigballen versenden. Das Ergebnis im Ninja Artisan ist von einer frischen Pizzeria-Pizza praktisch nicht mehr zu unterscheiden.</i><br><br>
+<details class="akk"><summary>❄️ Fertige Teigballen vom Profi<small>Tiefgekühlt geliefert, Pizzeria-Ergebnis</small></summary><div class="akkin"><i>Es gibt spezialisierte Pizza-Onlineshops (z. B. Waldis Pizza Shop), die tiefgekühlte Teigballen versenden. Das Ergebnis im Ninja Artisan ist von einer frischen Pizzeria-Pizza praktisch nicht mehr zu unterscheiden.</i><br><br>
 <b>Das Produkt:</b> Du erhältst perfekt portionierte Teigkugeln (meist ca. 250 g), die aus echtem italienischen <i>Tipo 00</i>-Mehl, Wasser, Salz und minimaler Hefe hergestellt und nach der optimalen Reifezeit schockgefrostet wurden. Absolut keine Chemie, kein Alkohol, kein künstlicher Kleber.<br><br>
 <b>Der Versand:</b> Erfolgt in Styroporboxen mit Trockeneis. Die Kugeln kommen tiefgekühlt bei dir an und wandern direkt in deinen Gefrierschrank.<br><br>
-<b>Die Anwendung:</b> Am Vortag einfach die gewünschte Anzahl Kugeln in einer abgedeckten Form in den Kühlschrank legen (zum Auftauen und langsamen Erwachen) und am Backtag 3 bis 4 Stunden vorher bei Raumtemperatur akklimatisieren lassen.</div></details>
+<b>Die Anwendung:</b> Am Vortag einfach die gewünschte Anzahl Kugeln in einer abgedeckten Form in den Kühlschrank legen (zum Auftauen und langsamen Erwachen) und am Backtag 3 bis 4 Stunden vorher bei Raumtemperatur akklimatisieren lassen.<br><br>📄 <a href="assets/pdf/waldis-pizzaballen-artisan.pdf" target="_blank" rel="noopener">Ausführlicher Leitfaden als PDF</a></div></details>
 <h3>Die besten Tricks</h3>
-<details class="akk"><summary>💡 Der Teig zieht sich wie Gummi zusammen?</summary><div class="akkin">Knete den Fertigteig von der Rolle nach dem Auspacken kurz zu einer glatten Kugel und lass ihn <b>mindestens 45 Minuten bei Raumtemperatur</b> abgedeckt ruhen. Das entspannt das Klebereiweiß (Gluten) komplett. Danach lässt sich der Teig mühelos von innen nach außen hauchdünn ausziehen, ohne zurückzuspringen, und der Rand geht im Ofen wunderbar luftig auf.</div></details>
-<details class="akk"><summary>🚫 Hilfe, die Pizza klebt auf der Schale fest!</summary><div class="akkin">Verwende zum Ausformen des Teigs und für die Pizzaschale <b>Hartweizengrieß (Semola)</b> statt normalem Mehl. Semola wirkt unter dem Teig wie winzige Kugellager, sodass die Pizza mühelos auf den heißen Stein gleitet. Normales Mehl verbrennt bei den 370 °C des Ninja Artisan sofort schwarz und hinterlässt einen bitteren Geschmack auf dem Pizzaboden.<br><br>Erst kurz vor dem Einschieben und nicht zu dick belegen.</div></details>
-<details class="akk"><summary>🌿 Verbrannter, bitterer Oregano auf der Pizza?</summary><div class="akkin">Streue getrocknete Kräuter wie Oregano <b>niemals oben auf den Käse</b>, da sie bei der enormen Oberhitze im Artisan in Sekunden verbrennen. <b>Der Hack:</b> Rühre den Oregano direkt in die kalte Tomatensauce ein. Die Feuchtigkeit der Tomaten schützt die Kräuter beim Backen, sodass sie ihr volles Pizzeria-Aroma entfalten, ohne bitter zu werden.</div></details>
+<details class="akk"><summary>💡 Teig zieht sich wie Gummi zusammen?<small>So entspannt er sich</small></summary><div class="akkin">Knete den Fertigteig von der Rolle nach dem Auspacken kurz zu einer glatten Kugel und lass ihn <b>mindestens 45 Minuten bei Raumtemperatur</b> abgedeckt ruhen. Das entspannt das Klebereiweiß (Gluten) komplett. Danach lässt sich der Teig mühelos von innen nach außen hauchdünn ausziehen, ohne zurückzuspringen, und der Rand geht im Ofen wunderbar luftig auf.</div></details>
+<details class="akk"><summary>🚫 Pizza klebt auf der Schale fest?<small>Grieß statt Mehl</small></summary><div class="akkin">Verwende zum Ausformen des Teigs und für die Pizzaschale <b>Hartweizengrieß (Semola)</b> statt normalem Mehl. Semola wirkt unter dem Teig wie winzige Kugellager, sodass die Pizza mühelos auf den heißen Stein gleitet. Normales Mehl verbrennt bei den 370 °C des Ninja Artisan sofort schwarz und hinterlässt einen bitteren Geschmack auf dem Pizzaboden.<br><br>Erst kurz vor dem Einschieben und nicht zu dick belegen.</div></details>
+<details class="akk"><summary>🌿 Oregano verbrennt und wird bitter?<small>Ab in die Sauce damit</small></summary><div class="akkin">Streue getrocknete Kräuter wie Oregano <b>niemals oben auf den Käse</b>, da sie bei der enormen Oberhitze im Artisan in Sekunden verbrennen. <b>Der Hack:</b> Rühre den Oregano direkt in die kalte Tomatensauce ein. Die Feuchtigkeit der Tomaten schützt die Kräuter beim Backen, sodass sie ihr volles Pizzeria-Aroma entfalten, ohne bitter zu werden.</div></details>
+<h3>Leitfäden zum Ausdrucken</h3>
+<a class="pdfkarte" href="assets/pdf/waldis-pizzaballen-artisan.pdf" target="_blank" rel="noopener"><span class="pk-ikon">📄</span><span><span class="pk-t">Waldis TK-Pizzaballen</span><span class="pk-x">Auftauen, Ausziehen, Backen – Zeitplan und Einstellungen</span></span><span class="pfeil">›</span></a>
+<a class="pdfkarte" href="assets/pdf/fertigpizza-artisan.pdf" target="_blank" rel="noopener"><span class="pk-ikon">📄</span><span><span class="pk-t">Fertigpizza aufwerten</span><span class="pk-x">Temperaturen, gute Sorten und das Pizzeria-Finish</span></span><span class="pfeil">›</span></a>
 </template>
 
 <template id="bereich-oldschool">
@@ -309,7 +329,7 @@ ol.schritte li::before{background:none;color:#000;border:1px solid #666;left:9px
 <div class="overlay" id="tourOverlay"><div class="obox">
   <h3>Willkommen in Michas Küche! 👋</h3>
   <div class="tourpunkt"><b>1 · Bereich wählen:</b> Die Startseite zeigt drei Kacheln: Old School, Ninja Combi &amp; Speedi und Ninja Artisan. Tippe deinen Bereich an – dort sind die Rezepte nach Kategorien geordnet, die sich wie in einem Register auf- und zuklappen lassen.</div>
-  <div class="tourpunkt"><b>2 · Suchen:</b> Auf der Startseite durchsucht das Suchfeld alle Rezepte, im Bereich nur den jeweiligen Bereich. Tipps und Hintergründe stecken hinter dem ℹ️-Register oben im Bereich.</div>
+  <div class="tourpunkt"><b>2 · Suchen:</b> Auf der Startseite durchsucht das Suchfeld alle Rezepte, im Bereich nur den jeweiligen Bereich. Tipps, Hintergründe und Leitfäden findest du im Bereich unter den Rezepten („Wissen &amp; Tipps“).</div>
   <div class="tourpunkt"><b>3 · Nachkochen:</b> Im Rezept findest du Zutaten, Schritt-für-Schritt-Anleitung und oft einen Tipp. Der Knopf „👨‍🍳 Kochmodus“ zeigt alles in großer Schrift, rechnet die Portionen um, hält den Bildschirm an und hat Timer mit Signalton.</div>
   <div class="tourpunkt"><b>4 · Installieren:</b> Die Seite lässt sich als App auf den Startbildschirm legen – dann funktioniert sie wie eine richtige App.</div>
   <div class="tourpunkt"><b>5 · Hilfe:</b> Der „?"-Knopf unten rechts öffnet diese Tour jederzeit wieder.</div>
@@ -754,15 +774,29 @@ function zeigeBereich(key){
   if(b.geraete.length>1){fEl.style.display="flex";baueFilter()}else{fEl.style.display="none"}
   const alle=alleRezepte().filter(r=>(r.device||[]).some(g=>b.geraete.includes(g))).filter(passt);
   let html='<button class="zurueck" id="bZurueck">‹ Zur Startseite</button>';
-  html+='<h2 class="bkopf" style="color:var(--leit)">'+esc(b.titel)+'</h2><div class="strich" style="background:var(--leit)"></div>';
-  html+='<details class="akk binfo"><summary>ℹ️ Über diesen Bereich – Tipps &amp; Hintergründe</summary><div class="akkin"><img class="foto" src="'+b.foto+'" alt="'+esc(b.titel)+'">'+document.getElementById("bereich-"+key).innerHTML+'</div></details>';
+  /* Vorlage zerlegen: Untertitel, Einleitung, Wissens-Teil */
+  const vorl=document.createElement("div");vorl.innerHTML=document.getElementById("bereich-"+key).innerHTML;
+  const bUnter=vorl.querySelector(".beschr"),bText=vorl.querySelector(".btext");
+  const unter=bUnter?bUnter.textContent:"",intro=bText?bText.innerHTML:"";
+  if(bUnter)bUnter.remove(); if(bText)bText.remove();
+  const wissen=vorl.innerHTML.trim();
+  const ohneSuche=suchText==="";
+  if(ohneSuche){
+    html+='<div class="bhero"><img src="'+b.foto+'" alt="'+esc(b.titel)+'"><div class="bh-text"><h2>'+esc(b.titel)+'</h2>'+(unter?'<div class="bh-unter">'+esc(unter)+'</div>':'')+'</div></div>';
+    if(intro)html+='<div class="btext bintro">'+intro+'</div>';
+  }else{
+    html+='<h2 class="bkopf" style="color:var(--leit)">'+esc(b.titel)+'</h2><div class="strich" style="background:var(--leit)"></div>';
+  }
   let kats=[...KATEGORIEN];
   alle.forEach(r=>{if(!kats.includes(r.category))kats.push(r.category)});
   let fi=0, treffer=0;
+  const belegt=kats.filter(kat=>alle.some(r=>r.category===kat));
+  html+='<h3 class="bsek">'+(ohneSuche?"Rezepte":"Treffer")+' ('+alle.length+')</h3>';
   kats.forEach(kat=>{
     const rs=alle.filter(r=>r.category===kat);
     if(!rs.length)return;
     treffer+=rs.length;
+    if(belegt.length===1){rs.forEach(r=>{html+=rezeptKachel(r,kat)});return} /* nur eine Kategorie: gleich aufgeklappt zeigen */
     const auf=(suchText!=="")||(offenKat[key]===kat);
     html+='<details class="akk kat-akk"'+(auf?" open":"")+' data-kat="'+esc(kat)+'"><summary>'+(KAT_IKON[kat]||"🍽️")+' '+esc(kat)+'<span class="kanz">'+rs.length+'</span></summary><div class="akkin">';
     rs.forEach(r=>{html+=rezeptKachel(r,kat)});
@@ -770,6 +804,7 @@ function zeigeBereich(key){
   });
   if(!treffer)html+='<div class="leer">Kein Rezept gefunden – Suche oder Filter ändern.</div>';
   html+='<button class="neu-btn" id="neuBtn">+ Neues Rezept anlegen</button>';
+  if(ohneSuche&&wissen)html+='<h3 class="bsek">Wissen &amp; Tipps</h3><div class="bwissen">'+wissen+'</div>';
   const main=document.getElementById("liste");
   main.innerHTML=html;
   document.getElementById("bZurueck").addEventListener("click",eineEbeneZurueck);
