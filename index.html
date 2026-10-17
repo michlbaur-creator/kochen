@@ -1056,24 +1056,45 @@ function eineEbeneZurueck(){
   else if(aktBereich){suchText="";document.getElementById("suche").value="";zeigeStart();window.scrollTo(0,0)}
 }
 try{if(!history.state)history.replaceState({v:"start"},"")}catch(e){}
+function zeigeZustand(st,mitKoch){
+  if(st.v==="bereich"&&BEREICHE[st.b]){offenId=null;zeigeBereich(st.b);return true}
+  if((st.v==="detail"||st.v==="koch")&&alleRezepte().some(x=>String(x.id)===String(st.id))){
+    if(st.b&&BEREICHE[st.b]&&aktBereich!==st.b)zeigeBereich(st.b);
+    if(String(offenId)!==String(st.id)||document.getElementById("detail").style.display!=="block")zeigeDetail(st.id);
+    if(mitKoch&&st.v==="koch"&&!kmRezept){const r=alleRezepte().find(x=>String(x.id)===String(st.id));if(r)kochmodusAuf(r)}
+    return true;
+  }
+  suchText="";document.getElementById("suche").value="";offenId=null;zeigeStart();return st.v==="start";
+}
 window.addEventListener("popstate",ev=>{
   const st=ev.state||{v:"start"};
   if(kmRezept&&st.v!=="koch"){
     if(!kochmodusZu()){navPush({v:"koch",b:aktBereich,id:offenId});return}
   }
   document.getElementById("editOverlay").classList.remove("offen");
-  if(st.v==="start"){suchText="";document.getElementById("suche").value="";offenId=null;zeigeStart();window.scrollTo(0,0)}
-  else if(st.v==="bereich"){offenId=null;zeigeBereich(st.b);window.scrollTo(0,0)}
-  else if(st.v==="detail"||st.v==="koch"){
-    if(st.b&&aktBereich!==st.b)zeigeBereich(st.b);
-    if(String(offenId)!==String(st.id)||document.getElementById("detail").style.display!=="block")zeigeDetail(st.id);
-    if(st.v==="koch"&&!kmRezept){const r=alleRezepte().find(x=>String(x.id)===String(st.id));if(r)kochmodusAuf(r)}
-  }
+  zeigeZustand(st,true);
+  if(st.v!=="detail"&&st.v!=="koch")window.scrollTo(0,0);
 });
+/* Lädt die App neu (z. B. weil gerade eine neue Version eingespielt wurde), bleibt man dort,
+   wo man war: gleiche Ebene, gleiches aufgeklapptes Register, gleiche Scrollposition. */
+function positionMerken(){try{sessionStorage.setItem("kochen-pos",JSON.stringify({k:offenKat,y:window.scrollY}))}catch(e){}}
+window.addEventListener("pagehide",positionMerken);
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")positionMerken()});
+function ansichtWiederherstellen(){
+  let pos=null;try{pos=JSON.parse(sessionStorage.getItem("kochen-pos"))}catch(e){}
+  if(pos&&pos.k)offenKat=pos.k;
+  const st=history.state||{v:"start"};
+  if(st.v==="start"||!zeigeZustand(st,false)){
+    if(st.v!=="start")try{history.replaceState({v:"start"},"")}catch(e){}
+    zeigeStart();return;
+  }
+  if(st.v==="koch")try{history.replaceState({v:"detail",b:st.b,id:st.id},"")}catch(e){}
+  if(pos&&pos.y)setTimeout(()=>window.scrollTo(0,pos.y),60);
+}
 
 baueFilter();
 baueZaehler();
-zeigeStart();
+ansichtWiederherstellen();
 </script>
 <script src="assets/app.js"></script>
 </body>

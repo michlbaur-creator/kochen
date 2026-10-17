@@ -7,8 +7,13 @@
   if (!('serviceWorker' in navigator)) return;
 
   var refreshing = false;
+  // Neu laden – aber nie mitten im Kochmodus (laufende Timer!): dann warten, bis er geschlossen ist.
+  function neuLaden() {
+    if (document.body && document.body.classList.contains('km-offen')) { setTimeout(neuLaden, 5000); return; }
+    location.reload();
+  }
   navigator.serviceWorker.addEventListener('controllerchange', function () {
-    if (refreshing) return; refreshing = true; location.reload();
+    if (refreshing) return; refreshing = true; neuLaden();
   });
 
   // Wartet eine neue Version? Dann sofort aktivieren (löst controllerchange aus).
@@ -16,7 +21,7 @@
     if (reg && reg.waiting && navigator.serviceWorker.controller) {
       reg.waiting.postMessage('SKIP_WAITING');
       // Failsafe (iPhone/iPad): falls controllerchange ausbleibt, trotzdem neu laden.
-      setTimeout(function () { if (!refreshing) { refreshing = true; location.reload(); } }, 1500);
+      setTimeout(function () { if (!refreshing) { refreshing = true; neuLaden(); } }, 1500);
     }
   }
 
